@@ -1,0 +1,25 @@
+{
+  "name": "ipl/validator",
+  "type": "library",
+  "description": "Icinga PHP Library - Validator",
+  "keywords": ["html"],
+  "homepage": "https://github.com/Icinga/ipl-validator",
+  "repositories": [{
+    "type": "vcs",
+    "url": "https://github.com/icinga/ipl-stdlib"
+  }],
+  "require": {
+    "php": ">=5.4.0",
+    "ipl/stdlib": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "ipl\\Validator\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ipl\\Tests\\Validator\\": "tests"
+    }
+  }
+}
