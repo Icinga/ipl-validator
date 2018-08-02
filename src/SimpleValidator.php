@@ -2,6 +2,7 @@
 
 namespace ipl\Validator;
 
+use ipl\Stdlib\Contracts\ValidatorInterface;
 use ipl\Stdlib\MessageContainer;
 
 abstract class SimpleValidator implements ValidatorInterface

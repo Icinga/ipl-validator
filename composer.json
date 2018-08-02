@@ -4,6 +4,9 @@
   "description": "Icinga PHP Library - Validator",
   "keywords": ["html"],
   "homepage": "https://github.com/Icinga/ipl-validator",
+  "config": {
+    "sort-packages": true
+  },
   "repositories": [{
     "type": "vcs",
     "url": "https://github.com/icinga/ipl-stdlib"
