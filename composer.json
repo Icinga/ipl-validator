@@ -6,7 +6,8 @@
   "license": "MIT",
   "require": {
     "php": ">=5.6.0",
-    "ipl/stdlib": ">=0.5.0"
+    "ipl/stdlib": ">=0.5.0",
+    "ipl/i18n": "dev-master"
   },
   "autoload": {
     "psr-4": {
