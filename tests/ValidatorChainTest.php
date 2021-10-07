@@ -275,9 +275,6 @@ class ValidatorChainTest extends TestCase
         $this->assertTrue($validators->getValidatorsThatBreakTheChain()->contains($callbackValidator));
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testArraySpecExceptionIfNameIsMissing()
     {
         $spec = [
@@ -285,17 +282,18 @@ class ValidatorChainTest extends TestCase
             ]
         ];
 
+        $this->expectException(InvalidArgumentException::class);
+
         (new ValidatorChain())->addValidators($spec);
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testNameToOptionsSpecExceptionIfClassDoesNotExist()
     {
         $spec = [
             'doesnotexist' => null
         ];
+
+        $this->expectException(InvalidArgumentException::class);
 
         (new ValidatorChain())->addValidators($spec);
     }
