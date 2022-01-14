@@ -5,7 +5,7 @@
   "homepage": "https://github.com/Icinga/ipl-validator",
   "license": "MIT",
   "require": {
-    "php": ">=5.6.0",
+    "php": ">=7.2",
     "ipl/stdlib": ">=0.5.0",
     "ipl/i18n": ">=0.1.0",
     "ext-openssl": "*"
