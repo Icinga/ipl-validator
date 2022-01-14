@@ -242,6 +242,7 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
         return array_values(iterator_to_array($this));
     }
 
+    #[\ReturnTypeWillChange]
     public function count()
     {
         return count($this->validators);
@@ -252,6 +253,7 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
      *
      * @return Validator[]|PriorityQueue
      */
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
          // Clone validators because the PriorityQueue acts as a heap and thus items are removed upon iteration
