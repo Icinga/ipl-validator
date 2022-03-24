@@ -10,6 +10,7 @@ use ipl\Stdlib\Plugins;
 use ipl\Stdlib\PriorityQueue;
 use IteratorAggregate;
 use SplObjectStorage;
+use Traversable;
 use UnexpectedValueException;
 
 use function ipl\Stdlib\get_php_type;
@@ -242,7 +243,7 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
         return array_values(iterator_to_array($this));
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->validators);
     }
@@ -252,7 +253,7 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
      *
      * @return Validator[]|PriorityQueue
      */
-    public function getIterator()
+    public function getIterator(): Traversable
     {
          // Clone validators because the PriorityQueue acts as a heap and thus items are removed upon iteration
         return clone $this->validators;
