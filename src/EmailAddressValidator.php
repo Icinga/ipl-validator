@@ -17,7 +17,7 @@ class EmailAddressValidator extends BaseValidator
         $this->clearMessages();
 
         // Validate email address
-        if (! filter_var($value, FILTER_VALIDATE_EMAIL)) {
+        if (! empty($value) && ! filter_var($value, FILTER_VALIDATE_EMAIL)) {
             $this->addMessage($this->translate('Invalid Email address given.'));
             return false;
         }
