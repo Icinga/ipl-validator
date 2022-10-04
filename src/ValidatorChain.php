@@ -38,6 +38,7 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
         $this->validatorsThatBreakTheChain = new SplObjectStorage();
 
         $this->addDefaultPluginLoader('validator', __NAMESPACE__, 'Validator');
+        $this->addDefaultPluginLoader('validator', AssertionLoader::class, '');
     }
 
     /**
@@ -191,7 +192,10 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
             ));
         }
 
-        if (empty($options)) {
+        if ($class instanceof AssertionValidator) {
+            $validator = $class;
+            $validator->setOptions($options);
+        } elseif (empty($options)) {
             $validator = new $class();
         } else {
             $validator = new $class($options);
