@@ -20,5 +20,8 @@
     "psr-4": {
       "ipl\\Tests\\Validator\\": "tests"
     }
+  },
+  "require-dev": {
+    "guzzlehttp/psr7": "^1"
   }
 }
