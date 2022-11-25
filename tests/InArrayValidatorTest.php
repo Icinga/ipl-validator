@@ -4,7 +4,7 @@ namespace ipl\Tests\Validator;
 
 use ipl\I18n\NoopTranslator;
 use ipl\I18n\StaticTranslator;
-use ipl\Tests\Validator\lib\InArrayValidatorWithPublicFindInvalid;
+use ipl\Tests\Validator\Lib\InArrayValidatorWithPublicFindInvalid;
 use ipl\Validator\InArrayValidator;
 
 class InArrayValidatorTest extends TestCase

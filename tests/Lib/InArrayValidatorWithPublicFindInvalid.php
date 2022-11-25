@@ -1,6 +1,6 @@
 <?php
 
-namespace ipl\Tests\Validator\lib;
+namespace ipl\Tests\Validator\Lib;
 
 use ipl\Validator\InArrayValidator;
 
