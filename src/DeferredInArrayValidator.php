@@ -35,11 +35,7 @@ class DeferredInArrayValidator extends InArrayValidator
 
     public function getHaystack(): array
     {
-        if (! isset($this->haystack)) {
-            $this->haystack = call_user_func($this->callback);
-        }
-
-        return $this->haystack;
+        return $this->haystack ?? call_user_func($this->callback);
     }
 
     /**
