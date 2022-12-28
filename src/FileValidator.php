@@ -2,7 +2,6 @@
 
 namespace ipl\Validator;
 
-use Icinga\Util\Format;
 use ipl\I18n\Translation;
 use LogicException;
 use Psr\Http\Message\UploadedFileInterface;
@@ -37,31 +36,11 @@ class FileValidator extends BaseValidator
      */
     public function __construct(array $options = [])
     {
-        $min = $options['minSize'] ?? 0;
-        $max = $options['maxSize'] ?? null;
-        if ($max !== null) {
-            if ($min > $max) {
-                throw new LogicException(
-                    sprintf(
-                        'The minSize must be less than or equal to the maxSize, but minSize: %s and maxSize: %s given.',
-                        $min,
-                        $max
-                    )
-                );
-            }
-
-            $this->setMaxSize($max);
-        }
-
-        $this->setMinSize($min);
-
-        if (isset($options['maxFileNameLength'])) {
-            $this->setMaxFileNameLength($options['maxFileNameLength']);
-        }
-
-        if (isset($options['mimeType'])) {
-            $this->setAllowedMimeTypes($options['mimeType']);
-        }
+        $this
+            ->setMinSize($options['minSize'] ?? 0)
+            ->setMaxSize($options['maxSize'] ?? null)
+            ->setMaxFileNameLength($options['maxFileNameLength'] ?? null)
+            ->setAllowedMimeTypes($options['mimeType'] ?? null);
     }
 
     /**
@@ -83,6 +62,16 @@ class FileValidator extends BaseValidator
      */
     public function setMinSize(int $minSize): self
     {
+        if (($max = $this->getMaxSize()) !== null && $minSize > $max) {
+            throw new LogicException(
+                sprintf(
+                    'The minSize must be less than or equal to the maxSize, but minSize: %d and maxSize: %d given.',
+                    $minSize,
+                    $max
+                )
+            );
+        }
+
         $this->minSize = $minSize;
 
         return $this;
@@ -101,12 +90,22 @@ class FileValidator extends BaseValidator
     /**
      * Set the maximum allowed file size
      *
-     * @param int $maxSize
+     * @param ?int $maxSize
      *
      * @return $this
      */
-    public function setMaxSize(int $maxSize): self
+    public function setMaxSize(?int $maxSize): self
     {
+        if (($min = $this->getMinSize()) !== null && $maxSize < $min) {
+            throw new LogicException(
+                sprintf(
+                    'The minSize must be less than or equal to the maxSize, but minSize: %d and maxSize: %d given.',
+                    $min,
+                    $maxSize
+                )
+            );
+        }
+
         $this->maxSize = $maxSize;
 
         return $this;
@@ -125,11 +124,11 @@ class FileValidator extends BaseValidator
     /**
      * Set the allowed file mime types
      *
-     * @param string[] $allowedMimeTypes
+     * @param ?string[] $allowedMimeTypes
      *
      * @return $this
      */
-    public function setAllowedMimeTypes(array $allowedMimeTypes): self
+    public function setAllowedMimeTypes(?array $allowedMimeTypes): self
     {
         $this->allowedMimeTypes = $allowedMimeTypes;
 
@@ -149,11 +148,11 @@ class FileValidator extends BaseValidator
     /**
      * Set maximum allowed file name length
      *
-     * @param int $maxFileNameLength
+     * @param ?int $maxFileNameLength
      *
      * @return $this
      */
-    public function setMaxFileNameLength(int $maxFileNameLength): self
+    public function setMaxFileNameLength(?int $maxFileNameLength): self
     {
         $this->maxFileNameLength = $maxFileNameLength;
 
@@ -171,13 +170,11 @@ class FileValidator extends BaseValidator
                     return false;
                 }
             }
-        } else {
-            if (! $this->validateFile($value)) {
-                return false;
-            }
+
+            return true;
         }
 
-        return true;
+        return $this->validateFile($value);
     }
 
 
@@ -187,9 +184,9 @@ class FileValidator extends BaseValidator
         /** @var $file UploadedFileInterface */
         if ($this->getMaxSize() && $file->getSize() > $this->getMaxSize()) {
             $this->addMessage(sprintf(
-                $this->translate('File %s is bigger than the allowed maximum size of %s'),
+                $this->translate('File %s is bigger than the allowed maximum size of %d'),
                 $file->getClientFileName(),
-                Format::bytes($this->getMaxSize())
+                $this->getMaxSize()
             ));
 
             $isValid = false;
@@ -197,9 +194,9 @@ class FileValidator extends BaseValidator
 
         if ($this->getMinSize() && $file->getSize() < $this->getMinSize()) {
             $this->addMessage(sprintf(
-                $this->translate('File %s is smaller than the minimum required size of %s'),
+                $this->translate('File %s is smaller than the minimum required size of %d'),
                 $file->getClientFileName(),
-                Format::bytes($this->getMinSize())
+                $this->getMinSize()
             ));
 
             $isValid = false;
@@ -210,7 +207,7 @@ class FileValidator extends BaseValidator
 
             if (! $strValidator->isValid($file->getClientFilename())) {
                 $this->addMessage(sprintf(
-                    $this->translate('File name is longer than the allowed name length of %s characters.'),
+                    $this->translate('File name is longer than the allowed name length of %d characters.'),
                     $this->maxFileNameLength
                 ));
 

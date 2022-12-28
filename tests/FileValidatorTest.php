@@ -20,8 +20,10 @@ class FileValidatorTest extends TestCase
         );
     }
 
-    public function testWithValidValue(): void
+    public function testValidValue(): void
     {
+        StaticTranslator::$instance = new NoopTranslator();
+
         $options = [
             'mimeType'  => ['pdf'],
         ];
@@ -31,5 +33,84 @@ class FileValidatorTest extends TestCase
         $uploadedFile = $this->createUploadedFileObject();
 
         $this->assertTrue($validator->isValid($uploadedFile));
+    }
+
+    public function testArrayAsValue(): void
+    {
+        StaticTranslator::$instance = new NoopTranslator();
+
+        $options = [
+            'mimeType'  => ['pdf'],
+        ];
+
+        $validator = new FileValidator($options);
+
+
+        $files = [
+            $this->createUploadedFileObject(),
+            $this->createUploadedFileObject()
+        ];
+
+        $this->assertTrue($validator->isValid($files));
+    }
+
+    public function testMinSizeOption(): void
+    {
+        StaticTranslator::$instance = new NoopTranslator();
+
+        $uploadedFile = $this->createUploadedFileObject();
+
+        $validator = (new FileValidator())
+            ->setMinSize(10);
+
+        $this->assertTrue($validator->isValid($uploadedFile));
+
+        $validator->setMinSize(700);
+        $this->assertFalse($validator->isValid($uploadedFile));
+    }
+
+    public function testMaxSizeOption(): void
+    {
+        StaticTranslator::$instance = new NoopTranslator();
+
+        $uploadedFile = $this->createUploadedFileObject();
+
+        $validator = (new FileValidator())
+            ->setMaxSize(700);
+
+        $this->assertTrue($validator->isValid($uploadedFile));
+
+        $validator->setMaxSize(300);
+        $this->assertFalse($validator->isValid($uploadedFile));
+    }
+
+    public function testMimeTypeOption(): void
+    {
+        StaticTranslator::$instance = new NoopTranslator();
+
+        $uploadedFile = $this->createUploadedFileObject();
+
+        $validator = (new FileValidator())
+            ->setAllowedMimeTypes(['gif', '.doc', 'png', '.pdf']);
+
+        $this->assertTrue($validator->isValid($uploadedFile));
+
+        $validator->setAllowedMimeTypes(['gif', '.doc', 'png', '.csv']);
+        $this->assertFalse($validator->isValid($uploadedFile));
+    }
+
+    public function testMaxFileNameLengthOption(): void
+    {
+        StaticTranslator::$instance = new NoopTranslator();
+
+        $uploadedFile = $this->createUploadedFileObject();
+
+        $validator = (new FileValidator())
+            ->setMaxFileNameLength(10);
+
+        $this->assertTrue($validator->isValid($uploadedFile));
+
+        $validator->setMaxFileNameLength(3);
+        $this->assertFalse($validator->isValid($uploadedFile));
     }
 }
