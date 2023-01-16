@@ -70,7 +70,7 @@ class BetweenValidator extends BaseValidator
      *
      * @param  mixed $min
      *
-     * @return self
+     * @return $this
      */
     public function setMin($min): self
     {
@@ -94,7 +94,7 @@ class BetweenValidator extends BaseValidator
      *
      * @param  mixed $max
      *
-     * @return self
+     * @return $this
      */
     public function setMax($max): self
     {
@@ -118,7 +118,7 @@ class BetweenValidator extends BaseValidator
      *
      * @param  bool $inclusive
      *
-     * @return self
+     * @return $this
      */
     public function setInclusive($inclusive = true): self
     {
