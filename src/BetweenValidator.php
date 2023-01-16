@@ -145,7 +145,7 @@ class BetweenValidator extends BaseValidator
             }
         } elseif ($this->getMin() >= $value || $value >= $this->getMax()) {
             $this->addMessage(sprintf(
-                $this->translate("'%s' is strictly not between '%s' and '%s'"),
+                $this->translate("'%s' is not between '%s' and '%s'"),
                 $value,
                 $this->getMin(),
                 $this->getMax()
