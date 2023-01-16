@@ -131,7 +131,7 @@ class StringLengthValidator extends BaseValidator
     {
         if ($encoding !== null) {
             $availableEncodings = array_map('strtolower', mb_list_encodings());
-            if (!in_array(strtolower($encoding), $availableEncodings, true)) {
+            if (! in_array(strtolower($encoding), $availableEncodings, true)) {
                 throw new InvalidArgumentException(
                     sprintf('Given encoding "%s" is not supported on this OS!', $encoding)
                 );
