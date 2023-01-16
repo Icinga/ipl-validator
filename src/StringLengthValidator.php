@@ -13,10 +13,10 @@ class StringLengthValidator extends BaseValidator
 {
     use Translation;
 
-    /** @var int Minimum required length */
+    /** @var mixed Minimum required length */
     protected $min;
 
-    /** @var ?int Maximum required length */
+    /** @var mixed Maximum required length */
     protected $max;
 
     /** @var ?string Encoding to use */
@@ -25,9 +25,9 @@ class StringLengthValidator extends BaseValidator
     /**
      * Create a new StringLengthValidator
      *
-     * Available options:
-     * - min: (int) Minimum required string length, default 0
-     * - max: (int) Maximum required string length, default null
+     * Optional options:
+     * - min: (scalar) Minimum required string length, default 0
+     * - max: (scalar) Maximum required string length, default null
      * - encoding: (string) Encoding type, default null
      */
     public function __construct(array $options = [])
@@ -41,9 +41,9 @@ class StringLengthValidator extends BaseValidator
     /**
      * Get the minimum required string length
      *
-     * @return int
+     * @return mixed
      */
-    public function getMin(): int
+    public function getMin()
     {
         return $this->min;
     }
@@ -51,13 +51,13 @@ class StringLengthValidator extends BaseValidator
     /**
      * Set the minimum required string length
      *
-     * @param int $min
+     * @param mixed $min
      *
      * @return $this
      *
      * @throws LogicException When the $min is greater than the $max value
      */
-    public function setMin(int $min): self
+    public function setMin($min): self
     {
         if ($this->getMax() !== null && $min > $this->getMax()) {
             throw new LogicException(
@@ -77,9 +77,9 @@ class StringLengthValidator extends BaseValidator
     /**
      * Get the maximum required string length
      *
-     * @return ?int
+     * @return mixed
      */
-    public function getMax(): ?int
+    public function getMax()
     {
         return $this->max;
     }
@@ -87,13 +87,13 @@ class StringLengthValidator extends BaseValidator
     /**
      * Set the minimum required string length
      *
-     * @param ?int $max
+     * @param mixed $max
      *
      * @return $this
      *
      * @throws LogicException When the $min is greater than the $max value
      */
-    public function setMax(?int $max): self
+    public function setMax($max): self
     {
         if ($max !== null && $this->getMin() > $max) {
             throw new LogicException(
