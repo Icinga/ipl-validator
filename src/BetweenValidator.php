@@ -53,7 +53,7 @@ class BetweenValidator extends BaseValidator
     }
 
     /**
-     * Returns the min option
+     * Return the min option
      *
      * @return mixed
      */
@@ -63,7 +63,7 @@ class BetweenValidator extends BaseValidator
     }
 
     /**
-     * Sets the min option
+     * Set the min option
      *
      * @param  mixed $min
      *
@@ -77,7 +77,7 @@ class BetweenValidator extends BaseValidator
     }
 
     /**
-     * Returns the max option
+     * Return the max option
      *
      * @return mixed
      */
@@ -87,7 +87,7 @@ class BetweenValidator extends BaseValidator
     }
 
     /**
-     * Sets the max option
+     * Set the max option
      *
      * @param  mixed $max
      *
@@ -101,7 +101,7 @@ class BetweenValidator extends BaseValidator
     }
 
     /**
-     * Returns the inclusive option
+     * Return the inclusive option
      *
      * @return bool
      */
@@ -111,7 +111,7 @@ class BetweenValidator extends BaseValidator
     }
 
     /**
-     * Sets the inclusive option
+     * Set the inclusive option
      *
      * @param  bool $inclusive
      *
