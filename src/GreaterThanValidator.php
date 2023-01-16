@@ -4,6 +4,9 @@ namespace ipl\Validator;
 
 use ipl\I18n\Translation;
 
+/**
+ * Validates whether the value is greater than the given min
+ */
 class GreaterThanValidator extends BaseValidator
 {
     use Translation;
@@ -12,9 +15,9 @@ class GreaterThanValidator extends BaseValidator
     protected $min;
 
     /**
-     * Validates whether the value is greater than the given min
+     * Create a new GreaterThanValidator
      *
-     * Available options:
+     * Optional options:
      * - min: (scalar) Comparison value for greater than, default 0
      */
     public function __construct(array $options = [])
