@@ -6,6 +6,9 @@ use InvalidArgumentException;
 use ipl\I18n\Translation;
 use LogicException;
 
+/**
+ * Validates string length with given options
+ */
 class StringLengthValidator extends BaseValidator
 {
     use Translation;
@@ -20,7 +23,7 @@ class StringLengthValidator extends BaseValidator
     protected $encoding;
 
     /**
-     * Validates string length with given options
+     * Create a new StringLengthValidator
      *
      * Available options:
      * - min: (int) Minimum required string length, default 0
