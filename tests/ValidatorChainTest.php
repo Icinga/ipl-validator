@@ -3,6 +3,8 @@
 namespace ipl\Tests\Validator;
 
 use InvalidArgumentException;
+use ipl\I18n\NoopTranslator;
+use ipl\I18n\StaticTranslator;
 use ipl\Validator\CallbackValidator;
 use ipl\Validator\ValidatorChain;
 
@@ -211,6 +213,45 @@ class ValidatorChainTest extends TestCase
 
         $this->assertFalse($validators->isValid('value'));
         $this->assertSame(['Validation failed'], $validators->getMessages());
+    }
+
+    public function testValidateEmptyFlag()
+    {
+        $validators = (new ValidatorChain())
+            ->addValidators([
+                new CallbackValidator(function ($value, CallbackValidator $validator) {
+                    $validator->addMessage('This validator should get called');
+                    return false;
+                })
+            ]);
+
+        $this->assertFalse($validators->isValid(null));
+        $this->assertSame(['This validator should get called'], $validators->getMessages());
+
+        $validators = (new ValidatorChain())
+            ->addValidators([
+                (new CallbackValidator(function ($value, CallbackValidator $validator) {
+                    $validator->addMessage('This validator should not get called');
+                    return false;
+                }))
+                ->setValidateEmpty(false)
+            ]);
+
+        $this->assertTrue($validators->isValid(null));
+        $this->assertSame([], $validators->getMessages());
+
+        $validators = (new ValidatorChain())
+            ->addValidators(['DateTime' => null]);
+
+        $this->assertTrue($validators->isValid(null));
+        $this->assertSame([], $validators->getMessages());
+
+        StaticTranslator::$instance = new NoopTranslator();
+        $validators = (new ValidatorChain())
+            ->addValidators(['DateTime' => ['validate_empty' => true]]);
+
+        $this->assertFalse($validators->isValid(null));
+        $this->assertSame(['Invalid date/time given.'], $validators->getMessages());
     }
 
     public function testIsValidClearsMessages()
