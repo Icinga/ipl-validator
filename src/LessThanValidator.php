@@ -2,9 +2,11 @@
 
 namespace ipl\Validator;
 
-use Exception;
 use ipl\I18n\Translation;
 
+/**
+ * Validates whether the value is less than the given max
+ */
 class LessThanValidator extends BaseValidator
 {
     use Translation;
@@ -13,9 +15,9 @@ class LessThanValidator extends BaseValidator
     protected $max;
 
     /**
-     * Validates whether the value is less than the given max
+     * Create a new LessThanValidator
      *
-     * Available options:
+     * Optional options:
      * - max: (int) Comparison value for less than, default 0
      */
     public function __construct(array $options = [])
