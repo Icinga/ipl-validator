@@ -13,9 +13,6 @@ class FileValidator extends BaseValidator
 {
     use Translation;
 
-    /** @var UploadedFileInterface|UploadedFileInterface[] */
-    protected $value;
-
     /** @var int Minimum allowed file size */
     protected $minSize;
 
