@@ -116,7 +116,7 @@ class FileValidator extends BaseValidator
      *
      * @return ?string[]
      */
-    public function getAllowedMimeTypes(): array
+    public function getAllowedMimeTypes(): ?array
     {
         return $this->allowedMimeTypes;
     }
