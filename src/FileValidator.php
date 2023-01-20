@@ -3,6 +3,7 @@
 namespace ipl\Validator;
 
 use ipl\I18n\Translation;
+use ipl\Stdlib\Str;
 use LogicException;
 use Psr\Http\Message\UploadedFileInterface;
 
@@ -215,22 +216,19 @@ class FileValidator extends BaseValidator
             }
         }
 
-        $hasAllowedMimeType = false;
         if (! empty($this->getAllowedMimeTypes())) {
+            $hasAllowedMimeType = false;
             foreach ($this->getAllowedMimeTypes() as $type) {
                 $fileMimetype = $file->getClientMediaType();
                 if (($pos = strpos($type, '/*')) !== false) { // image/*
                     $typePrefix = substr($type, 0, $pos);
-                    if (strpos($fileMimetype, $typePrefix) !== false) {
+                    if (Str::startsWith($fileMimetype, $typePrefix)) {
                         $hasAllowedMimeType = true;
+                        break;
                     }
-                } elseif (strpos($type, '/') === false) { // .png
-                    $typeExtension = trim($type, '.');
-                    if (strpos($fileMimetype, $typeExtension) !== false) {
-                        $hasAllowedMimeType = true;
-                    }
-                } elseif (strpos($fileMimetype, $type) !== false) { // image/png
+                } elseif ($fileMimetype === $type) { // image/png
                     $hasAllowedMimeType = true;
+                    break;
                 }
             }
 

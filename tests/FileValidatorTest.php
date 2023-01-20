@@ -9,14 +9,14 @@ use ipl\Validator\FileValidator;
 
 class FileValidatorTest extends TestCase
 {
-    public function createUploadedFileObject(): UploadedFile
+    public function createUploadedFileObject($mimeType = 'application/pdf'): UploadedFile
     {
         return new UploadedFile(
             'test/test.pdf',
             500,
             0,
             'test.pdf',
-            'application/pdf'
+            $mimeType
         );
     }
 
@@ -24,11 +24,7 @@ class FileValidatorTest extends TestCase
     {
         StaticTranslator::$instance = new NoopTranslator();
 
-        $options = [
-            'mimeType'  => ['pdf'],
-        ];
-
-        $validator = new FileValidator($options);
+        $validator = new FileValidator();
 
         $uploadedFile = $this->createUploadedFileObject();
 
@@ -39,12 +35,7 @@ class FileValidatorTest extends TestCase
     {
         StaticTranslator::$instance = new NoopTranslator();
 
-        $options = [
-            'mimeType'  => ['pdf'],
-        ];
-
-        $validator = new FileValidator($options);
-
+        $validator = new FileValidator();
 
         $files = [
             $this->createUploadedFileObject(),
@@ -91,11 +82,17 @@ class FileValidatorTest extends TestCase
         $uploadedFile = $this->createUploadedFileObject();
 
         $validator = (new FileValidator())
-            ->setAllowedMimeTypes(['gif', '.doc', 'png', '.pdf']);
+            ->setAllowedMimeTypes(['application/pdf']);
 
         $this->assertTrue($validator->isValid($uploadedFile));
 
-        $validator->setAllowedMimeTypes(['gif', '.doc', 'png', '.csv']);
+        $validator->setAllowedMimeTypes(['application/*']);
+
+        $this->assertTrue($validator->isValid($uploadedFile));
+
+        $validator->setAllowedMimeTypes(['image/gif', 'image/jpeg']);
+        $uploadedFile = $this->createUploadedFileObject('image/png');
+
         $this->assertFalse($validator->isValid($uploadedFile));
     }
 
