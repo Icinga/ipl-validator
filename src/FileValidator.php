@@ -6,6 +6,9 @@ use ipl\I18n\Translation;
 use LogicException;
 use Psr\Http\Message\UploadedFileInterface;
 
+/**
+ * Validates an uploaded file
+ */
 class FileValidator extends BaseValidator
 {
     use Translation;
@@ -26,13 +29,13 @@ class FileValidator extends BaseValidator
     protected $maxFileNameLength;
 
     /**
-     * Validates file with given options
+     * Create a new FileValidator
      *
-     * Available options:
-     * - minSize: (int) Minimum allowed file size, default null
-     * - maxSize: (int) Maximum allowed file size, default null
-     * - maxFileNameLength: (int) Maximum allowed file name length, default null
-     * - mimeType: (array) Allowed mime types, default null
+     * Optional options:
+     * - minSize: (int) Minimum allowed file size, by default 0
+     * - maxSize: (int) Maximum allowed file size, by default no limit
+     * - maxFileNameLength: (int) Maximum allowed file name length, by default no limit
+     * - mimeType: (array) Allowed mime types, by default no restriction
      */
     public function __construct(array $options = [])
     {
