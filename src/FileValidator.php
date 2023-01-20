@@ -207,7 +207,7 @@ class FileValidator extends BaseValidator
 
             if (! $strValidator->isValid($file->getClientFilename())) {
                 $this->addMessage(sprintf(
-                    $this->translate('File name is longer than the allowed name length of %d characters.'),
+                    $this->translate('File name is longer than the allowed length of %d characters.'),
                     $this->maxFileNameLength
                 ));
 
