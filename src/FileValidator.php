@@ -97,7 +97,7 @@ class FileValidator extends BaseValidator
      */
     public function setMaxSize(?int $maxSize): self
     {
-        if (($min = $this->getMinSize()) !== null && $maxSize < $min) {
+        if ($maxSize !== null && ($min = $this->getMinSize()) !== null && $maxSize < $min) {
             throw new LogicException(
                 sprintf(
                     'The minSize must be less than or equal to the maxSize, but minSize: %d and maxSize: %d given.',

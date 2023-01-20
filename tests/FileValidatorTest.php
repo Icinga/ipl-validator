@@ -51,8 +51,7 @@ class FileValidatorTest extends TestCase
 
         $uploadedFile = $this->createUploadedFileObject();
 
-        $validator = (new FileValidator())
-            ->setMinSize(10);
+        $validator = new FileValidator(['minSize' => 10]);
 
         $this->assertTrue($validator->isValid($uploadedFile));
 
@@ -66,8 +65,7 @@ class FileValidatorTest extends TestCase
 
         $uploadedFile = $this->createUploadedFileObject();
 
-        $validator = (new FileValidator())
-            ->setMaxSize(700);
+        $validator = new FileValidator(['maxSize' => 700]);
 
         $this->assertTrue($validator->isValid($uploadedFile));
 
@@ -102,8 +100,7 @@ class FileValidatorTest extends TestCase
 
         $uploadedFile = $this->createUploadedFileObject();
 
-        $validator = (new FileValidator())
-            ->setMaxFileNameLength(10);
+        $validator = new FileValidator(['maxFileNameLength' => 10]);
 
         $this->assertTrue($validator->isValid($uploadedFile));
 
