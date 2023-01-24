@@ -179,10 +179,9 @@ class FileValidator extends BaseValidator
     }
 
 
-    private function validateFile($file): bool
+    private function validateFile(UploadedFileInterface $file): bool
     {
         $isValid = true;
-        /** @var $file UploadedFileInterface */
         if ($this->getMaxSize() && $file->getSize() > $this->getMaxSize()) {
             $this->addMessage(sprintf(
                 $this->translate('File %s is bigger than the allowed maximum size of %d'),
