@@ -15,9 +15,16 @@ use UnexpectedValueException;
 
 use function ipl\Stdlib\get_php_type;
 
-class ValidatorChain implements Countable, IteratorAggregate, Validator
+class ValidatorChain implements Countable, IteratorAggregate
 {
-    use Messages;
+    use Messages {
+        hasMessages as private baseHasMessages;
+        getMessages as private baseGetMessages;
+        setMessages as private baseSetMessages;
+        addMessage as private baseAddMessage;
+        addMessages as private baseAddMessages;
+        clearMessages as private baseClearMessages;
+    }
     use Plugins;
 
     /** Default priority at which validators are added */
@@ -269,26 +276,75 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
         return clone $this->validators;
     }
 
+    /** @deprecated Use {@see self::validate()} instead */
     public function isValid($value)
     {
-        $this->clearMessages();
+        $result = $this->validate($value);
+        $this->addMessages($result->getMessages());
 
-        $valid = true;
+        return $result->isValid();
+    }
+
+    public function validate($value): ValidatedResult
+    {
+        $result = new ValidatedResult();
 
         foreach ($this as $validator) {
-            if ((empty($value) && ! $validator->validateEmpty()) || $validator->isValid($value)) {
+            if (empty($value) && ! $validator->validateEmpty()) {
                 continue;
             }
 
-            $valid = false;
+            if ($validator->isValid($value)) {
+                continue;
+            }
 
-            $this->addMessages($validator->getMessages());
+            // TODO: $validator->validate($result->setValue($value)), in the future?
+
+            $result->setIsValid(false);
+            $result->addMessages($validator->getMessages());
+            $validator->clearMessages(); // Validators aren't supposed to retain their messages forever, now
 
             if ($this->validatorsThatBreakTheChain->contains($validator)) {
                 break;
             }
         }
 
-        return $valid;
+        return $result;
+    }
+
+    /** @deprecated Use {@see self::validate()}->hasMessages() instead */
+    public function hasMessages()
+    {
+        return $this->baseHasMessages();
+    }
+
+    /** @deprecated Use {@see self::validate()}->getMessages() instead */
+    public function getMessages()
+    {
+        return $this->baseGetMessages();
+    }
+
+    /** @deprecated Use {@see self::validate()}->setMessages() instead */
+    public function setMessages(array $messages)
+    {
+        return $this->baseSetMessages($messages);
+    }
+
+    /** @deprecated Use {@see self::validate()}->addMessage() instead */
+    public function addMessage($message, ...$args)
+    {
+        return $this->baseAddMessage($message, ...$args);
+    }
+
+    /** @deprecated Use {@see self::validate()}->addMessages() instead */
+    public function addMessages(array $messages)
+    {
+        return $this->baseAddMessages($messages);
+    }
+
+    /** @deprecated Use {@see self::validate()}->clearMessages() instead */
+    public function clearMessages()
+    {
+        return $this->baseClearMessages();
     }
 }
