@@ -51,9 +51,6 @@ class LessThanValidator extends BaseValidator
 
     public function isValid($value)
     {
-        // Multiple isValid() calls must not stack validation messages
-        $this->clearMessages();
-
         if ($this->getMax() <= $value) {
             $this->addMessage(sprintf(
                 $this->translate("'%s' is not less than '%s'"),

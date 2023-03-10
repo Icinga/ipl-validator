@@ -162,9 +162,6 @@ class FileValidator extends BaseValidator
 
     public function isValid($value)
     {
-        // Multiple isValid() calls must not stack validation messages
-        $this->clearMessages();
-
         if (is_array($value)) {
             foreach ($value as $file) {
                 if (! $this->validateFile($file)) {

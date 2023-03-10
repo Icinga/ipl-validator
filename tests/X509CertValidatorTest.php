@@ -19,28 +19,6 @@ U1aTnHBR8cl5yTMAD8onBa/j7HhvL/Q=
 -----END CERTIFICATE-----
 EOF;
 
-    public function testIsValidClearsPreviousMessagesIfInvalid()
-    {
-        StaticTranslator::$instance = new NoopTranslator();
-
-        $validator = new X509CertValidator();
-        $validator->addMessage('will disappear');
-        $validator->isValid(preg_replace('/[A-Z]/', '%', self::CERT));
-
-        $this->assertSame(['Not a valid PEM-encoded X.509 certificate'], $validator->getMessages());
-    }
-
-    public function testIsValidClearsPreviousMessagesIfValid()
-    {
-        StaticTranslator::$instance = new NoopTranslator();
-
-        $validator = new X509CertValidator();
-        $validator->addMessage('will disappear');
-        $validator->isValid(self::CERT);
-
-        $this->assertSame([], $validator->getMessages());
-    }
-
     public function testIsValidDisallowsUrls()
     {
         StaticTranslator::$instance = new NoopTranslator();

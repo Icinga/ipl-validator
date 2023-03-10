@@ -37,9 +37,6 @@ class DateTimeValidator extends BaseValidator
      */
     public function isValid($value)
     {
-        // Multiple isValid() calls must not stack validation messages
-        $this->clearMessages();
-
         if (! $value instanceof DateTime && ! is_string($value)) {
             $this->addMessage($this->translate('Invalid date/time given.'));
 

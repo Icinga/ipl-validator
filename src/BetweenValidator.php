@@ -129,9 +129,6 @@ class BetweenValidator extends BaseValidator
 
     public function isValid($value)
     {
-        // Multiple isValid() calls must not stack validation messages
-        $this->clearMessages();
-
         if ($this->getInclusive()) {
             if ($this->getMin() > $value || $value > $this->getMax()) {
                 $this->addMessage(sprintf(

@@ -86,9 +86,6 @@ class InArrayValidator extends BaseValidator
 
     public function isValid($value)
     {
-        // Multiple isValid() calls must not stack validation messages
-        $this->clearMessages();
-
         $notInArray = $this->findInvalid((array) $value);
 
         if (empty($notInArray)) {

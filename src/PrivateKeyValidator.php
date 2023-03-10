@@ -13,9 +13,6 @@ class PrivateKeyValidator extends BaseValidator
 
     public function isValid($value)
     {
-        // Multiple isValid() calls must not stack validation messages
-        $this->clearMessages();
-
         if (preg_match('/\A\s*\w+:/', $value)) {
             $this->addMessage($this->translate('URLs are not allowed'));
 
