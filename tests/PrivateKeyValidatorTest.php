@@ -21,28 +21,6 @@ r1WLl8RkIQ3V
 -----END PRIVATE KEY-----
 EOF;
 
-    public function testIsValidClearsPreviousMessagesIfInvalid()
-    {
-        StaticTranslator::$instance = new NoopTranslator();
-
-        $validator = new PrivateKeyValidator();
-        $validator->addMessage('will disappear');
-        $validator->isValid(preg_replace('/[A-Z]/', '%', self::KEY));
-
-        $this->assertSame(['Not a valid PEM-encoded private key'], $validator->getMessages());
-    }
-
-    public function testIsValidClearsPreviousMessagesIfValid()
-    {
-        StaticTranslator::$instance = new NoopTranslator();
-
-        $validator = new PrivateKeyValidator();
-        $validator->addMessage('will disappear');
-        $validator->isValid(self::KEY);
-
-        $this->assertSame([], $validator->getMessages());
-    }
-
     public function testIsValidDisallowsUrls()
     {
         StaticTranslator::$instance = new NoopTranslator();

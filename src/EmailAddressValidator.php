@@ -211,8 +211,6 @@ class EmailAddressValidator extends BaseValidator
      */
     public function isValid($value): bool
     {
-        $this->clearMessages();
-
         $matches = [];
         $length = true;
 

@@ -145,9 +145,6 @@ class StringLengthValidator extends BaseValidator
 
     public function isValid($value)
     {
-        // Multiple isValid() calls must not stack validation messages
-        $this->clearMessages();
-
         if ($encoding = $this->getEncoding()) { // because encoding is only nullable in php >= 8.0
             $length = mb_strlen($value, $encoding);
         } else {

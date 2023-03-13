@@ -39,9 +39,6 @@ class CallbackValidator extends BaseValidator
 
     public function isValid($value)
     {
-        // Multiple isValid() calls must not stack validation messages
-        $this->clearMessages();
-
         return call_user_func($this->callback, $value, $this);
     }
 }

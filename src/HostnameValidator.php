@@ -20,8 +20,6 @@ class HostnameValidator extends BaseValidator
      */
     public function isValid($value)
     {
-        $this->clearMessages();
-
         $asciiHostname = idn_to_ascii($value, 0, INTL_IDNA_VARIANT_UTS46);
         if (filter_var($asciiHostname, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME) === false) {
             $this->addMessage(sprintf(

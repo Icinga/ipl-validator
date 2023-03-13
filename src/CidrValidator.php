@@ -14,8 +14,6 @@ class CidrValidator extends BaseValidator
 
     public function isValid($value): bool
     {
-        $this->clearMessages();
-
         $pieces = Str::trimSplit($value, '/');
         if (count($pieces) !== 2) {
             $this->addMessage(sprintf(
