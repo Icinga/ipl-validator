@@ -22,8 +22,6 @@ namespace ipl\Validator;
  */
 class CallbackValidator extends BaseValidator
 {
-    protected $validateEmpty = true;
-
     /** @var callable Validation callback */
     protected $callback;
 
