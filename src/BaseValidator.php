@@ -35,16 +35,4 @@ abstract class BaseValidator implements Validator
 
         return $this;
     }
-
-    /**
-     * Get whether the given value is empty
-     *
-     * @param mixed $value
-     *
-     * @return bool
-     */
-    public function isEmpty($value): bool
-    {
-        return $value === '' || $value === [] || $value === null;
-    }
 }

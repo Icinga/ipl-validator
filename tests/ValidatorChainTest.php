@@ -254,24 +254,6 @@ class ValidatorChainTest extends TestCase
         $this->assertSame(['Invalid date/time given.'], $validators->getMessages());
     }
 
-    public function testOnlyEmptyValuesAreSkippedIfValidateEmptyIsFalse()
-    {
-        $validators = (new ValidatorChain())
-            ->addValidators([
-                (new CallbackValidator(function () {
-                    return false;
-                }))->setValidateEmpty(false)
-            ]);
-
-        $this->assertFalse($validators->isValid('0'), "`'0'` is not validated");
-        $this->assertFalse($validators->isValid(0), '`0` is not validated');
-        $this->assertFalse($validators->isValid(false), '`false` is not validated');
-
-        $this->assertTrue($validators->isValid(null), '`null` is validated');
-        $this->assertTrue($validators->isValid(''), "'' is validated");
-        $this->assertTrue($validators->isValid([]), '`[]` is validated');
-    }
-
     public function testIsValidClearsMessages()
     {
         $validators = (new ValidatorChain())

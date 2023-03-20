@@ -276,7 +276,7 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
         $valid = true;
 
         foreach ($this as $validator) {
-            if ($validator instanceof BaseValidator && ! $validator->validateEmpty() && $validator->isEmpty($value)) {
+            if (empty($value) && $validator instanceof BaseValidator && ! $validator->validateEmpty()) {
                 continue;
             }
 
