@@ -5,6 +5,7 @@ namespace ipl\Tests\Validator;
 use InvalidArgumentException;
 use ipl\Validator\CallbackValidator;
 use ipl\Validator\ValidatorChain;
+use LogicException;
 
 class ValidatorChainTest extends TestCase
 {
@@ -296,5 +297,20 @@ class ValidatorChainTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         (new ValidatorChain())->addValidators($spec);
+    }
+
+    public function testValidatorsWithoutSupportForEmptyValuesThrow()
+    {
+        $this->expectException(LogicException::class);
+        $this->expectExceptionMessage('This is expected');
+
+        $chain = (new ValidatorChain())
+            ->add(new CallbackValidator(function ($value) {
+                if ($value === null) {
+                    throw new LogicException('This is expected');
+                }
+            }));
+
+        $chain->isValid(null);
     }
 }
