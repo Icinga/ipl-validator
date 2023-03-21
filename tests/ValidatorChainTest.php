@@ -3,10 +3,9 @@
 namespace ipl\Tests\Validator;
 
 use InvalidArgumentException;
-use ipl\I18n\NoopTranslator;
-use ipl\I18n\StaticTranslator;
 use ipl\Validator\CallbackValidator;
 use ipl\Validator\ValidatorChain;
+use LogicException;
 
 class ValidatorChainTest extends TestCase
 {
@@ -215,63 +214,6 @@ class ValidatorChainTest extends TestCase
         $this->assertSame(['Validation failed'], $validators->getMessages());
     }
 
-    public function testValidateEmptyFlag()
-    {
-        $validators = (new ValidatorChain())
-            ->addValidators([
-                new CallbackValidator(function ($value, CallbackValidator $validator) {
-                    $validator->addMessage('This validator should get called');
-                    return false;
-                })
-            ]);
-
-        $this->assertFalse($validators->isValid(null));
-        $this->assertSame(['This validator should get called'], $validators->getMessages());
-
-        $validators = (new ValidatorChain())
-            ->addValidators([
-                (new CallbackValidator(function ($value, CallbackValidator $validator) {
-                    $validator->addMessage('This validator should not get called');
-                    return false;
-                }))
-                ->setValidateEmpty(false)
-            ]);
-
-        $this->assertTrue($validators->isValid(null));
-        $this->assertSame([], $validators->getMessages());
-
-        $validators = (new ValidatorChain())
-            ->addValidators(['DateTime' => null]);
-
-        $this->assertTrue($validators->isValid(null));
-        $this->assertSame([], $validators->getMessages());
-
-        StaticTranslator::$instance = new NoopTranslator();
-        $validators = (new ValidatorChain())
-            ->addValidators(['DateTime' => ['validate_empty' => true]]);
-
-        $this->assertFalse($validators->isValid(null));
-        $this->assertSame(['Invalid date/time given.'], $validators->getMessages());
-    }
-
-    public function testOnlyEmptyValuesAreSkippedIfValidateEmptyIsFalse()
-    {
-        $validators = (new ValidatorChain())
-            ->addValidators([
-                (new CallbackValidator(function () {
-                    return false;
-                }))->setValidateEmpty(false)
-            ]);
-
-        $this->assertFalse($validators->isValid('0'), "`'0'` is not validated");
-        $this->assertFalse($validators->isValid(0), '`0` is not validated');
-        $this->assertFalse($validators->isValid(false), '`false` is not validated');
-
-        $this->assertTrue($validators->isValid(null), '`null` is validated');
-        $this->assertTrue($validators->isValid(''), "'' is validated");
-        $this->assertTrue($validators->isValid([]), '`[]` is validated');
-    }
-
     public function testIsValidClearsMessages()
     {
         $validators = (new ValidatorChain())
@@ -355,5 +297,20 @@ class ValidatorChainTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         (new ValidatorChain())->addValidators($spec);
+    }
+
+    public function testValidatorsWithoutSupportForEmptyValuesThrow()
+    {
+        $this->expectException(LogicException::class);
+        $this->expectExceptionMessage('This is expected');
+
+        $chain = (new ValidatorChain())
+            ->add(new CallbackValidator(function ($value) {
+                if ($value === null) {
+                    throw new LogicException('This is expected');
+                }
+            }));
+
+        $chain->isValid(null);
     }
 }
