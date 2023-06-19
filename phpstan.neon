@@ -1,0 +1,13 @@
+parameters:
+    level: max
+
+    treatPhpDocTypesAsCertain: false
+    checkGenericClassInNonGenericObjectType: false
+    checkFunctionNameCase: true
+    checkInternalClassCaseSensitivity: true
+
+    paths:
+        - src
+
+    scanDirectories:
+        - vendor

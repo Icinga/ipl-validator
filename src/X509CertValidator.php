@@ -11,6 +11,10 @@ class X509CertValidator extends BaseValidator
 {
     use Translation;
 
+    /**
+     * @param String $value
+     * @return bool
+     */
     public function isValid($value)
     {
         // Multiple isValid() calls must not stack validation messages
