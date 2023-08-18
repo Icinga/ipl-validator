@@ -209,7 +209,7 @@ class FileValidator extends BaseValidator
         if ($this->getMaxFileNameLength()) {
             $strValidator = new StringLengthValidator(['max' => $this->getMaxFileNameLength()]);
 
-            if (! $strValidator->isValid($file->getClientFilename())) {
+            if (! $strValidator->isValid($file->getClientFilename() ?? '')) {
                 $this->addMessage(sprintf(
                     $this->translate('File name is longer than the allowed length of %d characters.'),
                     $this->maxFileNameLength
