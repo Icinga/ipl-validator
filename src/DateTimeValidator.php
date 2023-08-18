@@ -23,9 +23,9 @@ class DateTimeValidator extends BaseValidator
      *
      * @param bool $local
      */
-    public function __construct($local = true)
+    public function __construct(bool $local = true)
     {
-        $this->local = (bool) $local;
+        $this->local = $local;
     }
 
     /**
