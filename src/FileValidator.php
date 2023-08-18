@@ -160,6 +160,10 @@ class FileValidator extends BaseValidator
         return $this;
     }
 
+    /**
+     * @param UploadedFileInterface|UploadedFileInterface[] $value
+     * @return bool
+     */
     public function isValid($value)
     {
         // Multiple isValid() calls must not stack validation messages
