@@ -12,10 +12,10 @@ class BetweenValidator extends BaseValidator
 {
     use Translation;
 
-    /** @var mixed Min value */
+    /** @var int|float Min value */
     protected $min;
 
-    /** @var mixed Max value */
+    /** @var int|float Max value */
     protected $max;
 
     /**
@@ -33,8 +33,8 @@ class BetweenValidator extends BaseValidator
      *
      * Required options:
      *
-     * - min: (scalar) Minimum border
-     * - max: (scalar) Maximum border
+     * - min: (int|float) Minimum border
+     * - max: (int|float) Maximum border
      *
      * Optional options:
      *
@@ -58,7 +58,7 @@ class BetweenValidator extends BaseValidator
     /**
      * Return the min option
      *
-     * @return mixed
+     * @return int|float
      */
     public function getMin()
     {
@@ -68,7 +68,7 @@ class BetweenValidator extends BaseValidator
     /**
      * Set the min option
      *
-     * @param  mixed $min
+     * @param  int|float $min
      *
      * @return $this
      */
@@ -82,7 +82,7 @@ class BetweenValidator extends BaseValidator
     /**
      * Return the max option
      *
-     * @return mixed
+     * @return int|float
      */
     public function getMax()
     {
@@ -92,7 +92,7 @@ class BetweenValidator extends BaseValidator
     /**
      * Set the max option
      *
-     * @param  mixed $max
+     * @param  int|float $max
      *
      * @return $this
      */
@@ -127,7 +127,12 @@ class BetweenValidator extends BaseValidator
         return $this;
     }
 
-    public function isValid($value)
+    /**
+     * @param int|float $value
+     *
+     * @return bool
+     */
+    public function isValid($value): bool
     {
         // Multiple isValid() calls must not stack validation messages
         $this->clearMessages();
