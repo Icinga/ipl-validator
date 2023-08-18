@@ -217,17 +217,20 @@ class FileValidator extends BaseValidator
 
         if (! empty($this->getAllowedMimeTypes())) {
             $hasAllowedMimeType = false;
-            foreach ($this->getAllowedMimeTypes() as $type) {
-                $fileMimetype = $file->getClientMediaType();
-                if (($pos = strpos($type, '/*')) !== false) { // image/*
-                    $typePrefix = substr($type, 0, $pos);
-                    if (Str::startsWith($fileMimetype, $typePrefix)) {
+            $fileMimetype = $file->getClientMediaType();
+
+            if ($fileMimetype) {
+                foreach ($this->getAllowedMimeTypes() as $type) {
+                    if (($pos = strpos($type, '/*')) !== false) { // image/*
+                        $typePrefix = substr($type, 0, $pos);
+                        if (Str::startsWith($fileMimetype, $typePrefix)) {
+                            $hasAllowedMimeType = true;
+                            break;
+                        }
+                    } elseif ($fileMimetype === $type) { // image/png
                         $hasAllowedMimeType = true;
                         break;
                     }
-                } elseif ($fileMimetype === $type) { // image/png
-                    $hasAllowedMimeType = true;
-                    break;
                 }
             }
 
