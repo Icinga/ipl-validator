@@ -11,7 +11,7 @@ class InArrayValidator extends BaseValidator
 {
     use Translation;
 
-    /** @var array The array */
+    /** @var ?array The array */
     protected $haystack;
 
     /** @var bool Whether the types of the needle in the haystack should also match */
