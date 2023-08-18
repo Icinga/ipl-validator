@@ -120,9 +120,9 @@ class BetweenValidator extends BaseValidator
      *
      * @return $this
      */
-    public function setInclusive($inclusive = true): self
+    public function setInclusive(bool $inclusive = true): self
     {
-        $this->inclusive = (bool) $inclusive;
+        $this->inclusive = $inclusive;
 
         return $this;
     }
