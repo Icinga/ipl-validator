@@ -221,6 +221,10 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
     {
         $validatorsThatBreakTheChain = $validatorChain->getValidatorsThatBreakTheChain();
 
+        /**
+         * @var  int $priority
+         * @var  Validator $validator
+         */
         foreach ($validatorChain->validators->yieldAll() as $priority => $validator) {
             $this->add($validator, $validatorsThatBreakTheChain->contains($validator), $priority);
         }
