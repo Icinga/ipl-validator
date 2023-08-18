@@ -263,7 +263,7 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
         return clone $this->validators;
     }
 
-    public function isValid($value)
+    public function isValid($value): bool
     {
         $this->clearMessages();
 

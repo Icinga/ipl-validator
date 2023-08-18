@@ -54,7 +54,7 @@ class GreaterThanValidator extends BaseValidator
      *
      * @return bool
      */
-    public function isValid($value)
+    public function isValid($value): bool
     {
         // Multiple isValid() calls must not stack validation messages
         $this->clearMessages();

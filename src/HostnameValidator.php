@@ -18,7 +18,7 @@ class HostnameValidator extends BaseValidator
      *
      * @return boolean
      */
-    public function isValid($value)
+    public function isValid($value): bool
     {
         $this->clearMessages();
 
