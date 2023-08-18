@@ -149,7 +149,7 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
      *
      * @return $this
      */
-    public function addValidatorLoader($namespace, $postfix = null)
+    public function addValidatorLoader($namespace, $postfix = '')
     {
         $this->addPluginLoader('validator', $namespace, $postfix);
 
