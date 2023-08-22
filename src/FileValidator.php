@@ -189,7 +189,7 @@ class FileValidator extends BaseValidator
         if ($this->getMaxSize() && $file->getSize() > $this->getMaxSize()) {
             $this->addMessage(sprintf(
                 $this->translate('File %s is bigger than the allowed maximum size of %d'),
-                $file->getClientFileName(),
+                $file->getClientFilename(),
                 $this->getMaxSize()
             ));
 
@@ -199,7 +199,7 @@ class FileValidator extends BaseValidator
         if ($this->getMinSize() && $file->getSize() < $this->getMinSize()) {
             $this->addMessage(sprintf(
                 $this->translate('File %s is smaller than the minimum required size of %d'),
-                $file->getClientFileName(),
+                $file->getClientFilename(),
                 $this->getMinSize()
             ));
 
@@ -241,7 +241,7 @@ class FileValidator extends BaseValidator
             if (! $hasAllowedMimeType) {
                 $this->addMessage(sprintf(
                     $this->translate('File %s is of type %s. Only %s allowed.'),
-                    $file->getClientFileName(),
+                    $file->getClientFilename(),
                     $file->getClientMediaType(),
                     implode(', ', $this->allowedMimeTypes)
                 ));
