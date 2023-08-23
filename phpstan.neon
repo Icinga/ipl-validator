@@ -13,3 +13,10 @@ parameters:
 
     scanDirectories:
         - vendor
+
+    ignoreErrors:
+        -
+            messages:
+                - '#Unsafe usage of new static\(\)#'
+                - '#. but return statement is missing#'
+            reportUnmatched: false
