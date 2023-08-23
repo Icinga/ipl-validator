@@ -1,10 +1,12 @@
+includes:
+	- phpstan-baseline.neon
+
 parameters:
     level: max
 
-    treatPhpDocTypesAsCertain: false
-    checkGenericClassInNonGenericObjectType: false
     checkFunctionNameCase: true
     checkInternalClassCaseSensitivity: true
+    treatPhpDocTypesAsCertain: false
 
     paths:
         - src
