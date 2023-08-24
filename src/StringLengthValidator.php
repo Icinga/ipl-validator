@@ -13,10 +13,10 @@ class StringLengthValidator extends BaseValidator
 {
     use Translation;
 
-    /** @var mixed Minimum required length */
+    /** @var int Minimum required length */
     protected $min;
 
-    /** @var mixed Maximum required length */
+    /** @var ?int Maximum required length */
     protected $max;
 
     /** @var ?string Encoding to use */
@@ -41,9 +41,9 @@ class StringLengthValidator extends BaseValidator
     /**
      * Get the minimum required string length
      *
-     * @return mixed
+     * @return int
      */
-    public function getMin()
+    public function getMin(): int
     {
         return $this->min;
     }
@@ -51,13 +51,13 @@ class StringLengthValidator extends BaseValidator
     /**
      * Set the minimum required string length
      *
-     * @param mixed $min
+     * @param int $min
      *
      * @return $this
      *
      * @throws LogicException When the $min is greater than the $max value
      */
-    public function setMin($min): self
+    public function setMin(int $min): self
     {
         if ($this->getMax() !== null && $min > $this->getMax()) {
             throw new LogicException(
@@ -77,9 +77,9 @@ class StringLengthValidator extends BaseValidator
     /**
      * Get the maximum required string length
      *
-     * @return mixed
+     * @return ?int
      */
-    public function getMax()
+    public function getMax(): ?int
     {
         return $this->max;
     }
@@ -87,13 +87,13 @@ class StringLengthValidator extends BaseValidator
     /**
      * Set the minimum required string length
      *
-     * @param mixed $max
+     * @param ?int $max
      *
      * @return $this
      *
      * @throws LogicException When the $min is greater than the $max value
      */
-    public function setMax($max): self
+    public function setMax(?int $max): self
     {
         if ($max !== null && $this->getMin() > $max) {
             throw new LogicException(
@@ -143,7 +143,12 @@ class StringLengthValidator extends BaseValidator
         return  $this;
     }
 
-    public function isValid($value)
+    /**
+     * @param string $value
+     *
+     * @return bool
+     */
+    public function isValid($value): bool
     {
         // Multiple isValid() calls must not stack validation messages
         $this->clearMessages();

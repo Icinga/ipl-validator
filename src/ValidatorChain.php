@@ -149,7 +149,7 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
      *
      * @return $this
      */
-    public function addValidatorLoader($namespace, $postfix = null)
+    public function addValidatorLoader($namespace, $postfix = '')
     {
         $this->addPluginLoader('validator', $namespace, $postfix);
 
@@ -221,6 +221,10 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
     {
         $validatorsThatBreakTheChain = $validatorChain->getValidatorsThatBreakTheChain();
 
+        /**
+         * @var  int $priority
+         * @var  Validator $validator
+         */
         foreach ($validatorChain->validators->yieldAll() as $priority => $validator) {
             $this->add($validator, $validatorsThatBreakTheChain->contains($validator), $priority);
         }
@@ -259,7 +263,7 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
         return clone $this->validators;
     }
 
-    public function isValid($value)
+    public function isValid($value): bool
     {
         $this->clearMessages();
 

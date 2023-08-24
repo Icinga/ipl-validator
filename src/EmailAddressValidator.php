@@ -266,7 +266,8 @@ class EmailAddressValidator extends BaseValidator
         //decode IDN domain name
         $decodedHostname = idn_to_ascii($hostname, 0, INTL_IDNA_VARIANT_UTS46);
 
-        $result = getmxrr($decodedHostname, $mxHosts);
+        $result = $decodedHostname && getmxrr($decodedHostname, $mxHosts);
+
         if (! $result) {
             $this->addMessage(sprintf(
                 $this->translate("'%s' does not appear to have a valid MX record for the email address '%s'"),
