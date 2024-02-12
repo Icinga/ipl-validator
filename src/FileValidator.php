@@ -34,6 +34,8 @@ class FileValidator extends BaseValidator
      * - maxSize: (int) Maximum allowed file size, by default no limit
      * - maxFileNameLength: (int) Maximum allowed file name length, by default no limit
      * - mimeType: (array) Allowed mime types, by default no restriction
+     *
+     * @param array{minSize?: int, maxSize?: int, maxFileNameLength?: int, mimeType?: string[]} $options
      */
     public function __construct(array $options = [])
     {
@@ -243,7 +245,7 @@ class FileValidator extends BaseValidator
                     $this->translate('File %s is of type %s. Only %s allowed.'),
                     $file->getClientFilename(),
                     $file->getClientMediaType(),
-                    implode(', ', $this->allowedMimeTypes)
+                    implode(', ', $this->allowedMimeTypes ?? [])
                 ));
 
                 $isValid = false;

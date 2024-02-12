@@ -19,6 +19,8 @@ class GreaterThanValidator extends BaseValidator
      *
      * Optional options:
      * - min: (int|float) Comparison value for greater than, default 0
+     *
+     * @param array{min?: int|float} $options
      */
     public function __construct(array $options = [])
     {

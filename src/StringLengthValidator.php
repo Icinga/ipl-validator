@@ -26,9 +26,11 @@ class StringLengthValidator extends BaseValidator
      * Create a new StringLengthValidator
      *
      * Optional options:
-     * - min: (scalar) Minimum required string length, default 0
-     * - max: (scalar) Maximum required string length, default null
-     * - encoding: (string) Encoding type, default null
+     * - min: (int) Minimum required string length, default 0
+     * - max: (int) Maximum required string length, default none
+     * - encoding: (string) Encoding type, default none
+     *
+     * @param array{min?: int, max?: int, encoding?: string} $options
      */
     public function __construct(array $options = [])
     {
