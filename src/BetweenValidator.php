@@ -40,7 +40,7 @@ class BetweenValidator extends BaseValidator
      *
      * - inclusive: (bool) Whether inclusive border values, default true
      *
-     * @param array $options
+     * @param array{min: int|float, max: int|float, inclusive?: bool} $options
      *
      * @throws Exception When required option is missing
      */

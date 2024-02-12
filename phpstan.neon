@@ -1,6 +1,3 @@
-includes:
-	- phpstan-baseline.neon
-
 parameters:
     level: max
 
@@ -12,7 +9,7 @@ parameters:
         - src
 
     scanDirectories:
-        - vendor
+        - /usr/share/icinga-php
 
     ignoreErrors:
         -

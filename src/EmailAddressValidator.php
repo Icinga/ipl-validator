@@ -40,7 +40,7 @@ class EmailAddressValidator extends BaseValidator
      * 'mx'   => If an MX check should be enabled, boolean
      * 'deep' => If a deep MX check should be enabled, boolean
      *
-     * @param array $options
+     * @param array{max?: bool, deep?: bool} $options
      *
      * @throws Exception
      */
