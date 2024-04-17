@@ -8,6 +8,9 @@ parameters:
     paths:
         - src
 
+    scanDirectories:
+        - /usr/share/icinga-php
+
     ignoreErrors:
         -
             messages:
