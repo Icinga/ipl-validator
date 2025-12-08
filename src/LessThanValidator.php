@@ -2,15 +2,11 @@
 
 namespace ipl\Validator;
 
-use ipl\I18n\Translation;
-
 /**
  * Validates whether the value is less than the given max
  */
 class LessThanValidator extends BaseValidator
 {
-    use Translation;
-
     /** @var int|float Comparison value for less than */
     protected int|float $max;
 

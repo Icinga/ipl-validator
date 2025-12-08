@@ -3,7 +3,6 @@
 namespace ipl\Validator;
 
 use InvalidArgumentException;
-use ipl\I18n\Translation;
 use LogicException;
 
 /**
@@ -11,8 +10,6 @@ use LogicException;
  */
 class StringLengthValidator extends BaseValidator
 {
-    use Translation;
-
     /** @var int Minimum required length */
     protected int $min;
 
