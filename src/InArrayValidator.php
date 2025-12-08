@@ -2,15 +2,11 @@
 
 namespace ipl\Validator;
 
-use ipl\I18n\Translation;
-
 /**
  * Validate if specific single or multiple values exist in an array
  */
 class InArrayValidator extends BaseValidator
 {
-    use Translation;
-
     /** @var ?mixed[] The array */
     protected ?array $haystack = null;
 

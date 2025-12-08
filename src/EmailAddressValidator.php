@@ -3,7 +3,6 @@
 namespace ipl\Validator;
 
 use Exception;
-use ipl\I18n\Translation;
 
 /**
  * Validates an email address
@@ -16,8 +15,6 @@ use ipl\I18n\Translation;
  */
 class EmailAddressValidator extends BaseValidator
 {
-    use Translation;
-
     /**
      * If MX check should be enabled
      *

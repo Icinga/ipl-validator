@@ -2,15 +2,11 @@
 
 namespace ipl\Validator;
 
-use ipl\I18n\Translation;
-
 /**
  * Validates whether the value is greater than the given min
  */
 class GreaterThanValidator extends BaseValidator
 {
-    use Translation;
-
     /** @var int|float Comparison value for greater than */
     protected int|float $min;
 

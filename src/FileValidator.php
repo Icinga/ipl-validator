@@ -2,7 +2,6 @@
 
 namespace ipl\Validator;
 
-use ipl\I18n\Translation;
 use ipl\Stdlib\Str;
 use LogicException;
 use Psr\Http\Message\UploadedFileInterface;
@@ -12,8 +11,6 @@ use Psr\Http\Message\UploadedFileInterface;
  */
 class FileValidator extends BaseValidator
 {
-    use Translation;
-
     /** @var int Minimum allowed file size */
     protected int $minSize;
 

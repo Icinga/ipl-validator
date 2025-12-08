@@ -3,15 +3,12 @@
 namespace ipl\Validator;
 
 use DateTime;
-use ipl\I18n\Translation;
 
 /**
  * Validator for date-and-time input controls
  */
 class DateTimeValidator extends BaseValidator
 {
-    use Translation;
-
     /** @var string Default date time format */
     public const FORMAT = 'Y-m-d\TH:i:s';
 
