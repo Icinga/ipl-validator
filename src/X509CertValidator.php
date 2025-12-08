@@ -2,15 +2,11 @@
 
 namespace ipl\Validator;
 
-use ipl\I18n\Translation;
-
 /**
  * Validates an X.509 certificate
  */
 class X509CertValidator extends BaseValidator
 {
-    use Translation;
-
     /**
      * @param String $value
      * @return bool

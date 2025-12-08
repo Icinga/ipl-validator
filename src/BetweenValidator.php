@@ -3,15 +3,12 @@
 namespace ipl\Validator;
 
 use Exception;
-use ipl\I18n\Translation;
 
 /**
  * Validates whether value is between the given min and max
  */
 class BetweenValidator extends BaseValidator
 {
-    use Translation;
-
     /** @var int|float Min value */
     protected int|float $min;
 
