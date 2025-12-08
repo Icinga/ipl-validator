@@ -12,7 +12,7 @@ class GreaterThanValidator extends BaseValidator
     use Translation;
 
     /** @var int|float Comparison value for greater than */
-    protected $min;
+    protected int|float $min;
 
     /**
      * Create a new GreaterThanValidator
@@ -32,7 +32,7 @@ class GreaterThanValidator extends BaseValidator
      *
      * @return int|float
      */
-    public function getMin()
+    public function getMin(): float|int
     {
         return $this->min;
     }
@@ -40,11 +40,11 @@ class GreaterThanValidator extends BaseValidator
     /**
      * Set the min option
      *
-     * @param int|float $min
+     * @param float|int $min
      *
      * @return $this
      */
-    public function setMin($min): self
+    public function setMin(float|int $min): self
     {
         $this->min = $min;
 
