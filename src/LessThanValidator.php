@@ -40,7 +40,7 @@ class LessThanValidator extends BaseValidator
      *
      * @return $this
      */
-    public function setMax(int|float $max): self
+    public function setMax(int|float $max): static
     {
         $this->max = $max;
 

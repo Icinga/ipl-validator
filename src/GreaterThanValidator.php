@@ -40,7 +40,8 @@ class GreaterThanValidator extends BaseValidator
      *
      * @return $this
      */
-    public function setMin(int|float $min): self
+
+    public function setMin(int|float $min): static
     {
         $this->min = $min;
 
