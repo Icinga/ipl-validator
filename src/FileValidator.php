@@ -60,7 +60,7 @@ class FileValidator extends BaseValidator
      *
      * @return $this
      */
-    public function setMinSize(int $minSize): self
+    public function setMinSize(int $minSize): static
     {
         if (($max = $this->getMaxSize()) !== null && $minSize > $max) {
             throw new LogicException(
@@ -94,7 +94,7 @@ class FileValidator extends BaseValidator
      *
      * @return $this
      */
-    public function setMaxSize(?int $maxSize): self
+    public function setMaxSize(?int $maxSize): static
     {
         if ($maxSize !== null && ($min = $this->getMinSize()) !== null && $maxSize < $min) {
             throw new LogicException(
@@ -128,7 +128,7 @@ class FileValidator extends BaseValidator
      *
      * @return $this
      */
-    public function setAllowedMimeTypes(?array $allowedMimeTypes): self
+    public function setAllowedMimeTypes(?array $allowedMimeTypes): static
     {
         $this->allowedMimeTypes = $allowedMimeTypes;
 
@@ -152,7 +152,7 @@ class FileValidator extends BaseValidator
      *
      * @return $this
      */
-    public function setMaxFileNameLength(?int $maxFileNameLength): self
+    public function setMaxFileNameLength(?int $maxFileNameLength): static
     {
         $this->maxFileNameLength = $maxFileNameLength;
 

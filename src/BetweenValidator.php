@@ -69,7 +69,7 @@ class BetweenValidator extends BaseValidator
      *
      * @return $this
      */
-    public function setMin(float|int $min): self
+    public function setMin(float|int $min): static
     {
         $this->min = $min;
 
@@ -93,7 +93,7 @@ class BetweenValidator extends BaseValidator
      *
      * @return $this
      */
-    public function setMax(float|int $max): self
+    public function setMax(float|int $max): static
     {
         $this->max = $max;
 
@@ -117,7 +117,7 @@ class BetweenValidator extends BaseValidator
      *
      * @return $this
      */
-    public function setInclusive(bool $inclusive = true): self
+    public function setInclusive(bool $inclusive = true): static
     {
         $this->inclusive = $inclusive;
 

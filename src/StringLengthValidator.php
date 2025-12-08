@@ -56,7 +56,7 @@ class StringLengthValidator extends BaseValidator
      *
      * @throws LogicException When the $min is greater than the $max value
      */
-    public function setMin(int $min): self
+    public function setMin(int $min): static
     {
         if ($this->getMax() !== null && $min > $this->getMax()) {
             throw new LogicException(
@@ -92,7 +92,7 @@ class StringLengthValidator extends BaseValidator
      *
      * @throws LogicException When the $min is greater than the $max value
      */
-    public function setMax(?int $max): self
+    public function setMax(?int $max): static
     {
         if ($max !== null && $this->getMin() > $max) {
             throw new LogicException(
@@ -126,7 +126,7 @@ class StringLengthValidator extends BaseValidator
      *
      * @return $this
      */
-    public function setEncoding(?string $encoding): self
+    public function setEncoding(?string $encoding): static
     {
         if ($encoding !== null) {
             $availableEncodings = array_map('strtolower', mb_list_encodings());
