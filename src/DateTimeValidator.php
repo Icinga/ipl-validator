@@ -16,7 +16,7 @@ class DateTimeValidator extends BaseValidator
     public const FORMAT = 'Y-m-d\TH:i:s';
 
     /** @var bool Whether to use the default date time format */
-    protected $local;
+    protected bool $local;
 
     /**
      * Create a new date-and-time input control validator
