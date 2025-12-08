@@ -23,14 +23,14 @@ class EmailAddressValidator extends BaseValidator
      *
      * @var bool
      */
-    protected $mx = false;
+    protected bool $mx = false;
 
     /**
      * If a deep MX check should be enabled
      *
      * @var bool
      */
-    protected $deep = false;
+    protected bool $deep = false;
 
     /**
      * Create a new E-mail address validator with optional options

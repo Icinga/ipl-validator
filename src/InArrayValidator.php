@@ -12,10 +12,10 @@ class InArrayValidator extends BaseValidator
     use Translation;
 
     /** @var ?mixed[] The array */
-    protected $haystack;
+    protected ?array $haystack = null;
 
     /** @var bool Whether the types of the needle in the haystack should also match */
-    protected $strict = false;
+    protected bool $strict = false;
 
     /**
      * Create a new InArray validator

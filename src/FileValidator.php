@@ -15,16 +15,16 @@ class FileValidator extends BaseValidator
     use Translation;
 
     /** @var int Minimum allowed file size */
-    protected $minSize;
+    protected int $minSize;
 
     /** @var ?int Maximum allowed file size */
-    protected $maxSize;
+    protected ?int $maxSize = null;
 
     /** @var ?string[] Allowed mime types */
-    protected $allowedMimeTypes;
+    protected ?array $allowedMimeTypes;
 
     /** @var ?int Maximum allowed file name length */
-    protected $maxFileNameLength;
+    protected ?int $maxFileNameLength;
 
     /**
      * Create a new FileValidator
