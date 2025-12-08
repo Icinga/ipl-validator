@@ -49,7 +49,7 @@ class InArrayValidator extends BaseValidator
      *
      * @return $this
      */
-    public function setHaystack(array $haystack): self
+    public function setHaystack(array $haystack): static
     {
         $this->haystack = $haystack;
 
@@ -73,7 +73,7 @@ class InArrayValidator extends BaseValidator
      *
      * @return $this
      */
-    public function setStrict(bool $strict = true): self
+    public function setStrict(bool $strict = true): static
     {
         $this->strict = $strict;
 

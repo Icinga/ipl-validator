@@ -61,7 +61,7 @@ class EmailAddressValidator extends BaseValidator
      *
      * @return $this
      */
-    public function setEnableMxCheck(bool $mx = true): self
+    public function setEnableMxCheck(bool $mx = true): static
     {
         $this->mx = $mx;
 
@@ -80,7 +80,7 @@ class EmailAddressValidator extends BaseValidator
      *
      * @throws Exception in case MX check has not been enabled
      */
-    public function setEnableDeepMxCheck(bool $deep = true): self
+    public function setEnableDeepMxCheck(bool $deep = true): static
     {
         if (! $this->mx) {
             throw new Exception("MX record check has to be enabled to enable deep MX record check");
