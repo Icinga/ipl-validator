@@ -8,7 +8,7 @@ use ipl\Validator\PrivateKeyValidator;
 
 class PrivateKeyValidatorTest extends TestCase
 {
-    const KEY = <<<'EOF'
+    private const KEY = <<<'EOF'
 -----BEGIN PRIVATE KEY-----
 MIIBVQIBADANBgkqhkiG9w0BAQEFAASCAT8wggE7AgEAAkEA2QFrndQaF31FiIBk
 8Y7PT9j0/j+jq4fD8SHgTGAKunHXs01XUlIBCVWce1UA0aZ3P0nRzQxYLbJrejf0

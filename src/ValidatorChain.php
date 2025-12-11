@@ -22,7 +22,7 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
     use Plugins;
 
     /** Default priority at which validators are added */
-    const DEFAULT_PRIORITY = 1;
+    public const DEFAULT_PRIORITY = 1;
 
     /** @var PriorityQueue<int, Validator> Validator chain */
     protected $validators;
