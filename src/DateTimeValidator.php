@@ -13,7 +13,7 @@ class DateTimeValidator extends BaseValidator
     use Translation;
 
     /** @var string Default date time format */
-    const FORMAT = 'Y-m-d\TH:i:s';
+    public const FORMAT = 'Y-m-d\TH:i:s';
 
     /** @var bool Whether to use the default date time format */
     protected $local;

@@ -8,7 +8,7 @@ use ipl\Validator\X509CertValidator;
 
 class X509CertValidatorTest extends TestCase
 {
-    const CERT = <<<'EOF'
+    private const CERT = <<<'EOF'
 -----BEGIN CERTIFICATE-----
 MIIBAzCBrgIBKjANBgkqhkiG9w0BAQQFADANMQswCQYDVQQDDAI0MjAeFw0yMTA1
 MTcxMDI3MDlaFw0yMTA1MTgxMDI3MDlaMA0xCzAJBgNVBAMMAjQyMFwwDQYJKoZI
