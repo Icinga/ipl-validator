@@ -2,15 +2,11 @@
 
 namespace ipl\Validator;
 
-use ipl\I18n\Translation;
-
 /**
  * Validates a private key
  */
 class PrivateKeyValidator extends BaseValidator
 {
-    use Translation;
-
     /**
      * @param string $value
      *

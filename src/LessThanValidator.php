@@ -2,17 +2,13 @@
 
 namespace ipl\Validator;
 
-use ipl\I18n\Translation;
-
 /**
  * Validates whether the value is less than the given max
  */
 class LessThanValidator extends BaseValidator
 {
-    use Translation;
-
     /** @var int|float Comparison value for less than */
-    protected $max;
+    protected int|float $max;
 
     /**
      * Create a new LessThanValidator
@@ -32,7 +28,7 @@ class LessThanValidator extends BaseValidator
      *
      * @return int|float
      */
-    public function getMax()
+    public function getMax(): float|int
     {
         return $this->max;
     }
@@ -40,11 +36,11 @@ class LessThanValidator extends BaseValidator
     /**
      * Set the max option
      *
-     * @param int|float $max
+     * @param float|int $max
      *
      * @return $this
      */
-    public function setMax($max): self
+    public function setMax(float|int $max): static
     {
         $this->max = $max;
 

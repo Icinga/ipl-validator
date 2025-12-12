@@ -3,20 +3,17 @@
 namespace ipl\Validator;
 
 use Exception;
-use ipl\I18n\Translation;
 
 /**
  * Validates whether value is between the given min and max
  */
 class BetweenValidator extends BaseValidator
 {
-    use Translation;
-
     /** @var int|float Min value */
-    protected $min;
+    protected int|float $min;
 
     /** @var int|float Max value */
-    protected $max;
+    protected int|float $max;
 
     /**
      * Whether to do inclusive comparisons, allowing equivalence to min and/or max
@@ -24,9 +21,9 @@ class BetweenValidator extends BaseValidator
      * If false, then strict comparisons are done, and the value may equal neither
      * the min nor max options
      *
-     * @var boolean
+     * @var bool
      */
-    protected $inclusive;
+    protected bool $inclusive;
 
     /**
      * Create a new BetweenValidator
@@ -60,7 +57,7 @@ class BetweenValidator extends BaseValidator
      *
      * @return int|float
      */
-    public function getMin()
+    public function getMin(): float|int
     {
         return $this->min;
     }
@@ -68,11 +65,11 @@ class BetweenValidator extends BaseValidator
     /**
      * Set the min option
      *
-     * @param  int|float $min
+     * @param float|int $min
      *
      * @return $this
      */
-    public function setMin($min): self
+    public function setMin(float|int $min): static
     {
         $this->min = $min;
 
@@ -84,7 +81,7 @@ class BetweenValidator extends BaseValidator
      *
      * @return int|float
      */
-    public function getMax()
+    public function getMax(): float|int
     {
         return $this->max;
     }
@@ -92,11 +89,11 @@ class BetweenValidator extends BaseValidator
     /**
      * Set the max option
      *
-     * @param  int|float $max
+     * @param float|int $max
      *
      * @return $this
      */
-    public function setMax($max): self
+    public function setMax(float|int $max): static
     {
         $this->max = $max;
 
@@ -120,7 +117,7 @@ class BetweenValidator extends BaseValidator
      *
      * @return $this
      */
-    public function setInclusive(bool $inclusive = true): self
+    public function setInclusive(bool $inclusive = true): static
     {
         $this->inclusive = $inclusive;
 

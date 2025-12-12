@@ -25,10 +25,10 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
     public const DEFAULT_PRIORITY = 1;
 
     /** @var PriorityQueue<int, Validator> Validator chain */
-    protected $validators;
+    protected PriorityQueue $validators;
 
     /** @var SplObjectStorage<Validator, null> Validators that break the chain on failure */
-    protected $validatorsThatBreakTheChain;
+    protected SplObjectStorage $validatorsThatBreakTheChain;
 
     /**
      * Create a new validator chain
@@ -46,7 +46,7 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
      *
      * @return SplObjectStorage<Validator, null>
      */
-    public function getValidatorsThatBreakTheChain()
+    public function getValidatorsThatBreakTheChain(): SplObjectStorage
     {
         return $this->validatorsThatBreakTheChain;
     }
@@ -57,14 +57,16 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
      * If $breakChainOnFailure is true and the validator fails, subsequent validators won't be executed.
      *
      * @param Validator $validator
-     * @param bool      $breakChainOnFailure
-     * @param int       $priority            Priority at which to add validator
+     * @param bool $breakChainOnFailure
+     * @param int $priority            Priority at which to add validator
      *
      * @return $this
-     *
      */
-    public function add(Validator $validator, $breakChainOnFailure = false, $priority = self::DEFAULT_PRIORITY)
-    {
+    public function add(
+        Validator $validator,
+        bool $breakChainOnFailure = false,
+        int $priority = self::DEFAULT_PRIORITY
+    ): static {
         $this->validators->insert($validator, $priority);
 
         if ($breakChainOnFailure) {
@@ -83,7 +85,7 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
      *
      * @throws InvalidArgumentException If $validators is not iterable or if the validator specification is invalid
      */
-    public function addValidators($validators)
+    public function addValidators($validators): static
     {
         if ($validators instanceof static) {
             return $this->merge($validators);
@@ -150,7 +152,7 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
      *
      * @return $this
      */
-    public function addValidatorLoader($namespace, $postfix = '')
+    public function addValidatorLoader(string $namespace, string $postfix = ''): static
     {
         $this->addPluginLoader('validator', $namespace, $postfix);
 
@@ -162,7 +164,7 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
      *
      * @return $this
      */
-    public function clearValidators()
+    public function clearValidators(): static
     {
         $this->validators = new PriorityQueue();
         $this->validatorsThatBreakTheChain = new SplObjectStorage();
@@ -181,7 +183,7 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
      * @throws InvalidArgumentException If the validator to load is unknown
      * @throws UnexpectedValueException If a validator loader did not return an instance of {@link Validator}
      */
-    public function createValidator($name, $options = null)
+    public function createValidator(string $name, mixed $options = null): Validator
     {
         $class = $this->loadPlugin('validator', $name);
 
@@ -218,7 +220,7 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
      *
      * @return $this
      */
-    public function merge(ValidatorChain $validatorChain)
+    public function merge(ValidatorChain $validatorChain): static
     {
         $validatorsThatBreakTheChain = $validatorChain->getValidatorsThatBreakTheChain();
 
@@ -243,7 +245,7 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
      *
      * @return Validator[]
      */
-    public function toArray()
+    public function toArray(): array
     {
         /** @var Validator[] $validators */
         $validators = iterator_to_array($this);

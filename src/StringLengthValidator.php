@@ -3,7 +3,6 @@
 namespace ipl\Validator;
 
 use InvalidArgumentException;
-use ipl\I18n\Translation;
 use LogicException;
 
 /**
@@ -11,16 +10,14 @@ use LogicException;
  */
 class StringLengthValidator extends BaseValidator
 {
-    use Translation;
-
     /** @var int Minimum required length */
-    protected $min;
+    protected int $min;
 
     /** @var ?int Maximum required length */
-    protected $max;
+    protected ?int $max = null;
 
     /** @var ?string Encoding to use */
-    protected $encoding;
+    protected ?string $encoding;
 
     /**
      * Create a new StringLengthValidator
@@ -59,7 +56,7 @@ class StringLengthValidator extends BaseValidator
      *
      * @throws LogicException When the $min is greater than the $max value
      */
-    public function setMin(int $min): self
+    public function setMin(int $min): static
     {
         if ($this->getMax() !== null && $min > $this->getMax()) {
             throw new LogicException(
@@ -95,7 +92,7 @@ class StringLengthValidator extends BaseValidator
      *
      * @throws LogicException When the $min is greater than the $max value
      */
-    public function setMax(?int $max): self
+    public function setMax(?int $max): static
     {
         if ($max !== null && $this->getMin() > $max) {
             throw new LogicException(
@@ -129,7 +126,7 @@ class StringLengthValidator extends BaseValidator
      *
      * @return $this
      */
-    public function setEncoding(?string $encoding): self
+    public function setEncoding(?string $encoding): static
     {
         if ($encoding !== null) {
             $availableEncodings = array_map('strtolower', mb_list_encodings());
