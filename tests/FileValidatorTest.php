@@ -2,22 +2,69 @@
 
 namespace ipl\Tests\Validator;
 
-use GuzzleHttp\Psr7\UploadedFile;
 use ipl\I18n\NoopTranslator;
 use ipl\I18n\StaticTranslator;
 use ipl\Validator\FileValidator;
+use Psr\Http\Message\StreamInterface;
+use Psr\Http\Message\UploadedFileInterface;
+use RuntimeException;
 
 class FileValidatorTest extends TestCase
 {
-    public function createUploadedFileObject($mimeType = 'application/pdf'): UploadedFile
-    {
-        return new UploadedFile(
-            'test/test.pdf',
-            500,
-            0,
-            'test.pdf',
-            $mimeType
-        );
+    public function createUploadedFileObject(
+        string $filename = 'test.pdf',
+        int $size = 500,
+        int $error = UPLOAD_ERR_OK,
+        string $mimeType = 'application/pdf'
+    ): UploadedFileInterface {
+        return new class ($filename, $size, $error, $mimeType) implements UploadedFileInterface {
+            private readonly int $size;
+            private readonly int $error;
+            private readonly string $clientFilename;
+            private readonly string $clientMediaType;
+
+            public function __construct(
+                string $clientFilename,
+                int $size,
+                int $error,
+                string $clientMediaType
+            ) {
+                $this->size = $size;
+                $this->error = $error;
+                $this->clientFilename = $clientFilename;
+                $this->clientMediaType = $clientMediaType;
+            }
+
+            public function getStream(): StreamInterface
+            {
+                throw new RuntimeException('not implemented');
+            }
+
+            public function moveTo(string $targetPath): void
+            {
+                throw new RuntimeException('not implemented');
+            }
+
+            public function getSize(): ?int
+            {
+                return $this->size;
+            }
+
+            public function getError(): int
+            {
+                return $this->error;
+            }
+
+            public function getClientFilename(): ?string
+            {
+                return $this->clientFilename;
+            }
+
+            public function getClientMediaType(): ?string
+            {
+                return $this->clientMediaType;
+            }
+        };
     }
 
     public function testValidValue(): void
@@ -89,7 +136,7 @@ class FileValidatorTest extends TestCase
         $this->assertTrue($validator->isValid($uploadedFile));
 
         $validator->setAllowedMimeTypes(['image/gif', 'image/jpeg']);
-        $uploadedFile = $this->createUploadedFileObject('image/png');
+        $uploadedFile = $this->createUploadedFileObject(mimeType: 'image/png');
 
         $this->assertFalse($validator->isValid($uploadedFile));
     }

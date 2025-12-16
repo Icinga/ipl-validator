@@ -273,7 +273,7 @@ class ValidatorChainTest extends TestCase
         $this->assertSame($callbackValidator, $validatorsAsArray[0]);
         $this->assertInstanceOf(TestValidator::class, $validatorsAsArray[1]);
         $this->assertInstanceOf(CallbackValidator::class, $validatorsAsArray[2]);
-        $this->assertTrue($validators->getValidatorsThatBreakTheChain()->contains($callbackValidator));
+        $this->assertTrue($validators->getValidatorsThatBreakTheChain()->offsetExists($callbackValidator));
     }
 
     public function testArraySpecExceptionIfNameIsMissing()

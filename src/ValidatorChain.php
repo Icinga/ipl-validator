@@ -68,7 +68,7 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
         $this->validators->insert($validator, $priority);
 
         if ($breakChainOnFailure) {
-            $this->validatorsThatBreakTheChain->attach($validator);
+            $this->validatorsThatBreakTheChain->offsetSet($validator);
         }
 
         return $this;
@@ -227,7 +227,7 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
          * @var  Validator $validator
          */
         foreach ($validatorChain->validators->yieldAll() as $priority => $validator) {
-            $this->add($validator, $validatorsThatBreakTheChain->contains($validator), $priority);
+            $this->add($validator, $validatorsThatBreakTheChain->offsetExists($validator), $priority);
         }
 
         return $this;
@@ -282,7 +282,7 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
 
             $this->addMessages($validator->getMessages());
 
-            if ($this->validatorsThatBreakTheChain->contains($validator)) {
+            if ($this->validatorsThatBreakTheChain->offsetExists($validator)) {
                 break;
             }
         }

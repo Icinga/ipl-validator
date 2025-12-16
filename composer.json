@@ -23,7 +23,6 @@
     }
   },
   "require-dev": {
-    "guzzlehttp/psr7": "^1",
     "ipl/stdlib": "dev-main",
     "ipl/i18n": "dev-main"
   }
