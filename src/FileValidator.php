@@ -2,7 +2,6 @@
 
 namespace ipl\Validator;
 
-use ipl\I18n\Translation;
 use ipl\Stdlib\Str;
 use LogicException;
 use Psr\Http\Message\UploadedFileInterface;
@@ -12,19 +11,17 @@ use Psr\Http\Message\UploadedFileInterface;
  */
 class FileValidator extends BaseValidator
 {
-    use Translation;
-
     /** @var int Minimum allowed file size */
-    protected $minSize;
+    protected int $minSize;
 
     /** @var ?int Maximum allowed file size */
-    protected $maxSize;
+    protected ?int $maxSize = null;
 
     /** @var ?string[] Allowed mime types */
-    protected $allowedMimeTypes;
+    protected ?array $allowedMimeTypes;
 
     /** @var ?int Maximum allowed file name length */
-    protected $maxFileNameLength;
+    protected ?int $maxFileNameLength;
 
     /**
      * Create a new FileValidator
@@ -63,7 +60,7 @@ class FileValidator extends BaseValidator
      *
      * @return $this
      */
-    public function setMinSize(int $minSize): self
+    public function setMinSize(int $minSize): static
     {
         if (($max = $this->getMaxSize()) !== null && $minSize > $max) {
             throw new LogicException(
@@ -97,7 +94,7 @@ class FileValidator extends BaseValidator
      *
      * @return $this
      */
-    public function setMaxSize(?int $maxSize): self
+    public function setMaxSize(?int $maxSize): static
     {
         if ($maxSize !== null && ($min = $this->getMinSize()) !== null && $maxSize < $min) {
             throw new LogicException(
@@ -131,7 +128,7 @@ class FileValidator extends BaseValidator
      *
      * @return $this
      */
-    public function setAllowedMimeTypes(?array $allowedMimeTypes): self
+    public function setAllowedMimeTypes(?array $allowedMimeTypes): static
     {
         $this->allowedMimeTypes = $allowedMimeTypes;
 
@@ -155,7 +152,7 @@ class FileValidator extends BaseValidator
      *
      * @return $this
      */
-    public function setMaxFileNameLength(?int $maxFileNameLength): self
+    public function setMaxFileNameLength(?int $maxFileNameLength): static
     {
         $this->maxFileNameLength = $maxFileNameLength;
 

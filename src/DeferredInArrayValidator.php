@@ -45,7 +45,7 @@ class DeferredInArrayValidator extends InArrayValidator
      *
      * @return $this
      */
-    public function setCallback(callable $callback): self
+    public function setCallback(callable $callback): static
     {
         $this->haystack = null;
         $this->callback = $callback;
