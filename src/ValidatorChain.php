@@ -57,8 +57,8 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
      * If $breakChainOnFailure is true and the validator fails, subsequent validators won't be executed.
      *
      * @param Validator $validator
-     * @param bool      $breakChainOnFailure
-     * @param int       $priority            Priority at which to add validator
+     * @param bool $breakChainOnFailure
+     * @param int $priority Priority at which to add validator
      *
      * @return $this
      *
@@ -146,7 +146,7 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
      * Add a validator loader
      *
      * @param string $namespace Namespace of the validators
-     * @param string $postfix   Validator name postfix, if any
+     * @param string $postfix Validator name postfix, if any
      *
      * @return $this
      */
@@ -174,7 +174,7 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
      * Create a validator from the given name and options
      *
      * @param string $name
-     * @param mixed  $options
+     * @param mixed $options
      *
      * @return Validator
      *
@@ -263,7 +263,7 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
      */
     public function getIterator(): Traversable
     {
-         // Clone validators because the PriorityQueue acts as a heap and thus items are removed upon iteration
+        // Clone validators because the PriorityQueue acts as a heap and thus items are removed upon iteration
         return clone $this->validators;
     }
 

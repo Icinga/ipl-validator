@@ -68,7 +68,7 @@ class BetweenValidator extends BaseValidator
     /**
      * Set the min option
      *
-     * @param  int|float $min
+     * @param int|float $min
      *
      * @return $this
      */
@@ -92,7 +92,7 @@ class BetweenValidator extends BaseValidator
     /**
      * Set the max option
      *
-     * @param  int|float $max
+     * @param int|float $max
      *
      * @return $this
      */
@@ -116,7 +116,7 @@ class BetweenValidator extends BaseValidator
     /**
      * Set the inclusive option
      *
-     * @param  bool $inclusive
+     * @param bool $inclusive
      *
      * @return $this
      */

@@ -276,7 +276,7 @@ class EmailAddressValidator extends BaseValidator
             ));
         } elseif ($this->deep) {
             $validAddress = false;
-            $reserved     = true;
+            $reserved = true;
             foreach ($mxHosts as $decodedHostname) {
                 $res = $this->isReserved($decodedHostname);
                 if (! $res) {

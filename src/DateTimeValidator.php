@@ -31,7 +31,7 @@ class DateTimeValidator extends BaseValidator
     /**
      * Check whether the given date time is valid
      *
-     * @param   string|DateTime $value
+     * @param string|DateTime $value
      *
      * @return  bool
      */

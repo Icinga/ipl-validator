@@ -142,7 +142,7 @@ class StringLengthValidator extends BaseValidator
 
         $this->encoding = $encoding;
 
-        return  $this;
+        return $this;
     }
 
     /**
