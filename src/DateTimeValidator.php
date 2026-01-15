@@ -3,20 +3,17 @@
 namespace ipl\Validator;
 
 use DateTime;
-use ipl\I18n\Translation;
 
 /**
  * Validator for date-and-time input controls
  */
 class DateTimeValidator extends BaseValidator
 {
-    use Translation;
-
     /** @var string Default date time format */
     public const FORMAT = 'Y-m-d\TH:i:s';
 
     /** @var bool Whether to use the default date time format */
-    protected $local;
+    protected bool $local;
 
     /**
      * Create a new date-and-time input control validator
@@ -31,7 +28,7 @@ class DateTimeValidator extends BaseValidator
     /**
      * Check whether the given date time is valid
      *
-     * @param   string|DateTime $value
+     * @param string|DateTime $value
      *
      * @return  bool
      */

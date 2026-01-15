@@ -2,20 +2,16 @@
 
 namespace ipl\Validator;
 
-use ipl\I18n\Translation;
-
 /**
  * Validate if specific single or multiple values exist in an array
  */
 class InArrayValidator extends BaseValidator
 {
-    use Translation;
-
     /** @var ?mixed[] The array */
-    protected $haystack;
+    protected ?array $haystack = null;
 
     /** @var bool Whether the types of the needle in the haystack should also match */
-    protected $strict = false;
+    protected bool $strict = false;
 
     /**
      * Create a new InArray validator
@@ -53,7 +49,7 @@ class InArrayValidator extends BaseValidator
      *
      * @return $this
      */
-    public function setHaystack(array $haystack): self
+    public function setHaystack(array $haystack): static
     {
         $this->haystack = $haystack;
 
@@ -77,7 +73,7 @@ class InArrayValidator extends BaseValidator
      *
      * @return $this
      */
-    public function setStrict(bool $strict = true): self
+    public function setStrict(bool $strict = true): static
     {
         $this->strict = $strict;
 

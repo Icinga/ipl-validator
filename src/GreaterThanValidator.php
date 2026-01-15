@@ -2,17 +2,13 @@
 
 namespace ipl\Validator;
 
-use ipl\I18n\Translation;
-
 /**
  * Validates whether the value is greater than the given min
  */
 class GreaterThanValidator extends BaseValidator
 {
-    use Translation;
-
     /** @var int|float Comparison value for greater than */
-    protected $min;
+    protected int|float $min;
 
     /**
      * Create a new GreaterThanValidator
@@ -32,7 +28,7 @@ class GreaterThanValidator extends BaseValidator
      *
      * @return int|float
      */
-    public function getMin()
+    public function getMin(): int|float
     {
         return $this->min;
     }
@@ -44,7 +40,8 @@ class GreaterThanValidator extends BaseValidator
      *
      * @return $this
      */
-    public function setMin($min): self
+
+    public function setMin(int|float $min): static
     {
         $this->min = $min;
 
