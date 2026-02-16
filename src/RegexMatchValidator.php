@@ -24,7 +24,7 @@ class RegexMatchValidator extends BaseValidator
      *
      * @param string|array{pattern: string, notMatchMessage?: string|null} $pattern
      *
-     * @throws Exception If the given parameter is an array and does not contain the `pattern` option
+     * @throws Exception If the pattern is missing or invalid
      */
     public function __construct(string|array $pattern)
     {
@@ -38,6 +38,12 @@ class RegexMatchValidator extends BaseValidator
         } else {
             $this->pattern = $pattern;
         }
+
+        $rsv = new RegexSyntaxValidator();
+
+        if (! $rsv->isValid($this->pattern)) {
+            throw new Exception($rsv->getMessages()[0]);
+        }
     }
 
     public function isValid($value): bool
@@ -45,17 +51,7 @@ class RegexMatchValidator extends BaseValidator
         // Multiple isValid() calls must not stack validation messages
         $this->clearMessages();
 
-        $status = @preg_match($this->pattern, $value);
-        if ($status === false) {
-            $this->addMessage(sprintf(
-                "There was an internal error while using the pattern '%s'",
-                $this->pattern
-            ));
-
-            return false;
-        }
-
-        if ($status === 0) {
+        if (! preg_match($this->pattern, $value)) {
             if (empty($this->notMatchMessage)) {
                 $this->addMessage(sprintf(
                     $this->translate("'%s' does not match against pattern '%s'"),
