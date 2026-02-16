@@ -22,7 +22,7 @@ class RegexMatchValidator extends BaseValidator
     /**
      * Create a RegexMatchValidator
      *
-     * @param string|array $pattern
+     * @param string|array{pattern: string, notMatchMessage?: string|null} $pattern
      *
      * @throws Exception If the given parameter is an array and does not contain the `pattern` option
      */
