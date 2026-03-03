@@ -2,7 +2,7 @@
 
 namespace ipl\Validator;
 
-use Exception;
+use InvalidArgumentException;
 
 /**
  * Validates value with a given regex pattern
@@ -24,29 +24,27 @@ class RegexMatchValidator extends BaseValidator
      *
      * @param string|array{pattern: string, notMatchMessage?: string|null} $pattern
      *
-     * @throws Exception If the notMatchMessage consists only of whitespace or the pattern is missing or invalid
+     * @throws InvalidArgumentException If the notMatchMessage consists only of whitespace
+     * @throws InvalidArgumentException If the pattern is missing or invalid
      */
     public function __construct(string|array $pattern)
     {
         if (is_array($pattern)) {
-            if (! isset($pattern['pattern'])) {
-                throw new Exception("Missing option 'pattern'");
-            }
-
-            $this->pattern = $pattern['pattern'];
+            $this->pattern = $pattern['pattern'] ?? throw new InvalidArgumentException("Missing option 'pattern'");
             $this->notMatchMessage = $pattern['notMatchMessage'] ?? null;
 
-            if ($this->notMatchMessage !== null && empty(trim($this->notMatchMessage))) {
-                throw new Exception("Option 'notMatchMessage' consists only of whitespace");
+            if ($this->notMatchMessage !== null && trim($this->notMatchMessage) === '') {
+                throw new InvalidArgumentException(
+                    "Option 'notMatchMessage' must not be an empty or whitespace-only string"
+                );
             }
         } else {
             $this->pattern = $pattern;
         }
 
-        $rsv = new RegexSyntaxValidator();
-
-        if (! $rsv->isValid($this->pattern)) {
-            throw new Exception($rsv->getMessages()[0]);
+        $syntax = new RegexSyntaxValidator();
+        if (! $syntax->isValid($this->pattern)) {
+            throw new InvalidArgumentException($syntax->getMessages()[0]);
         }
     }
 
@@ -56,7 +54,7 @@ class RegexMatchValidator extends BaseValidator
         $this->clearMessages();
 
         if (! preg_match($this->pattern, $value)) {
-            if (empty($this->notMatchMessage)) {
+            if ($this->notMatchMessage === null) {
                 $this->addMessage(sprintf(
                     $this->translate("'%s' does not match against pattern '%s'"),
                     $value,
