@@ -24,7 +24,7 @@ class RegexMatchValidator extends BaseValidator
      *
      * @param string|array{pattern: string, notMatchMessage?: string|null} $pattern
      *
-     * @throws Exception If the pattern is missing or invalid
+     * @throws Exception If the notMatchMessage consists only of whitespace or the pattern is missing or invalid
      */
     public function __construct(string|array $pattern)
     {
@@ -35,6 +35,10 @@ class RegexMatchValidator extends BaseValidator
 
             $this->pattern = $pattern['pattern'];
             $this->notMatchMessage = $pattern['notMatchMessage'] ?? null;
+
+            if ($this->notMatchMessage !== null && empty(trim($this->notMatchMessage))) {
+                throw new Exception("Option 'notMatchMessage' consists only of whitespace");
+            }
         } else {
             $this->pattern = $pattern;
         }
