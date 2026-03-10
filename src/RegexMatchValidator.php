@@ -53,7 +53,15 @@ class RegexMatchValidator extends BaseValidator
         // Multiple isValid() calls must not stack validation messages
         $this->clearMessages();
 
-        if (! preg_match($this->pattern, $value)) {
+        $result = preg_match($this->pattern, $value);
+
+        if ($result === false) {
+            $this->addMessage(preg_last_error_msg());
+
+            return false;
+        }
+
+        if (! $result) {
             if ($this->notMatchMessage === null) {
                 $this->addMessage(sprintf(
                     $this->translate("'%s' does not match against pattern '%s'"),
