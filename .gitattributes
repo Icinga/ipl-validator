@@ -1,0 +1,6 @@
+# Exclude Git and CI configuration files from archives
+.git* export-ignore
+
+# Exclude test-related files from archives
+phpstan.neon export-ignore
+tests/ export-ignore
