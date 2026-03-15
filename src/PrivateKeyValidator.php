@@ -3,11 +3,13 @@
 namespace ipl\Validator;
 
 /**
- * Validates a private key
+ * Validate a PEM-encoded private key
  */
 class PrivateKeyValidator extends BaseValidator
 {
     /**
+     * Check whether the value is a valid PEM-encoded private key
+     *
      * @param string $value
      *
      * @return bool

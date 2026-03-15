@@ -6,7 +6,7 @@ use InvalidArgumentException;
 use LogicException;
 
 /**
- * Validates string length with given options
+ * Validate a string's length
  */
 class StringLengthValidator extends BaseValidator
 {
@@ -84,7 +84,7 @@ class StringLengthValidator extends BaseValidator
     }
 
     /**
-     * Set the minimum required string length
+     * Set the maximum required string length
      *
      * @param ?int $max
      *
@@ -125,6 +125,8 @@ class StringLengthValidator extends BaseValidator
      * @param ?string $encoding
      *
      * @return $this
+     *
+     * @throws InvalidArgumentException When the given encoding is not supported
      */
     public function setEncoding(?string $encoding): static
     {
@@ -143,6 +145,8 @@ class StringLengthValidator extends BaseValidator
     }
 
     /**
+     * Check whether the string's length is within the configured min and max bounds
+     *
      * @param string $value
      *
      * @return bool

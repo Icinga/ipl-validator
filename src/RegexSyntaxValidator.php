@@ -8,6 +8,8 @@ namespace ipl\Validator;
 class RegexSyntaxValidator extends BaseValidator
 {
     /**
+     * Check whether the value is a valid PHP regular expression
+     *
      * @param string $value
      *
      * @return bool

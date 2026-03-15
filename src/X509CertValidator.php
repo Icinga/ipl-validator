@@ -3,12 +3,15 @@
 namespace ipl\Validator;
 
 /**
- * Validates an X.509 certificate
+ * Validate a PEM-encoded X.509 certificate
  */
 class X509CertValidator extends BaseValidator
 {
     /**
-     * @param String $value
+     * Check whether the value is a valid PEM-encoded X.509 certificate
+     *
+     * @param string $value
+     *
      * @return bool
      */
     public function isValid($value): bool

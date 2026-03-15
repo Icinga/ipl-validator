@@ -5,7 +5,7 @@ namespace ipl\Validator;
 use DateTime;
 
 /**
- * Validator for date-and-time input controls
+ * Validate date-and-time input values
  */
 class DateTimeValidator extends BaseValidator
 {
@@ -16,9 +16,9 @@ class DateTimeValidator extends BaseValidator
     protected bool $local;
 
     /**
-     * Create a new date-and-time input control validator
+     * Create a new DateTimeValidator
      *
-     * @param bool $local
+     * @param bool $local Whether to use the local date time format instead of RFC3339
      */
     public function __construct(bool $local = true)
     {
@@ -30,7 +30,7 @@ class DateTimeValidator extends BaseValidator
      *
      * @param string|DateTime $value
      *
-     * @return  bool
+     * @return bool
      */
     public function isValid($value): bool
     {

@@ -5,7 +5,7 @@ namespace ipl\Validator;
 use Exception;
 
 /**
- * Validates an email address
+ * Validate an email address
  *
  * Email Address syntax: (<local part>@<domain-literal part>)
  *
@@ -15,31 +15,23 @@ use Exception;
  */
 class EmailAddressValidator extends BaseValidator
 {
-    /**
-     * If MX check should be enabled
-     *
-     * @var bool
-     */
+    /** @var bool If MX check should be enabled */
     protected bool $mx = false;
 
-    /**
-     * If a deep MX check should be enabled
-     *
-     * @var bool
-     */
+    /** @var bool If a deep MX check should be enabled */
     protected bool $deep = false;
 
     /**
-     * Create a new E-mail address validator with optional options
+     * Create a new EmailAddressValidator
      *
      * Optional options:
      *
-     * 'mx'   => If an MX check should be enabled, boolean
-     * 'deep' => If a deep MX check should be enabled, boolean
+     * - mx:   (bool) Whether to validate the hostname via MX DNS record, default false
+     * - deep: (bool) Whether to perform a deep MX check (requires mx), default false
      *
-     * @param array{max?: bool, deep?: bool} $options
+     * @param array{mx?: bool, deep?: bool} $options
      *
-     * @throws Exception
+     * @throws Exception If deep MX check is enabled without enabling the MX check first
      */
     public function __construct(array $options = [])
     {
@@ -57,7 +49,7 @@ class EmailAddressValidator extends BaseValidator
      *
      * To validate if the hostname is a DNS mail exchange (MX) record set it to true
      *
-     * @param bool $mx if MX check should be enabled
+     * @param bool $mx If MX check should be enabled
      *
      * @return $this
      */
@@ -74,11 +66,11 @@ class EmailAddressValidator extends BaseValidator
      * To validate if the hostname is a DNS mail exchange (MX) record, and it points to an A record (for IPv4) or
      * an AAAA / A6 record (for IPv6) set it to true
      *
-     * @param bool $deep if deep MX check should be enabled
+     * @param bool $deep If deep MX check should be enabled
      *
      * @return $this
      *
-     * @throws Exception in case MX check has not been enabled
+     * @throws Exception If MX check is not enabled
      */
     public function setEnableDeepMxCheck(bool $deep = true): static
     {
@@ -199,8 +191,7 @@ class EmailAddressValidator extends BaseValidator
     }
 
     /**
-     * Returns true if and only if $value is a valid email address
-     * according to RFC2822
+     * Check whether the value is a valid email address per RFC 2822
      *
      * @param string $value
      *
@@ -320,7 +311,7 @@ class EmailAddressValidator extends BaseValidator
     /**
      * Validate whether the given host is reserved
      *
-     * @param string $host host name or ip address
+     * @param string $host Hostname or IP address to check
      *
      * @return bool
      */

@@ -5,7 +5,7 @@ namespace ipl\Validator;
 use Exception;
 
 /**
- * Validates whether value is between the given min and max
+ * Validate whether a value is between the given min and max
  */
 class BetweenValidator extends BaseValidator
 {
@@ -15,14 +15,7 @@ class BetweenValidator extends BaseValidator
     /** @var int|float Max value */
     protected int|float $max;
 
-    /**
-     * Whether to do inclusive comparisons, allowing equivalence to min and/or max
-     *
-     * If false, then strict comparisons are done, and the value may equal neither
-     * the min nor max options
-     *
-     * @var bool
-     */
+    /** @var bool Whether min/max comparisons are inclusive; if false, the value may not equal min or max */
     protected bool $inclusive;
 
     /**
@@ -53,7 +46,7 @@ class BetweenValidator extends BaseValidator
     }
 
     /**
-     * Return the min option
+     * Get the min option
      *
      * @return int|float
      */
@@ -77,7 +70,7 @@ class BetweenValidator extends BaseValidator
     }
 
     /**
-     * Return the max option
+     * Get the max option
      *
      * @return int|float
      */
@@ -101,7 +94,7 @@ class BetweenValidator extends BaseValidator
     }
 
     /**
-     * Return the inclusive option
+     * Get the inclusive option
      *
      * @return bool
      */
@@ -125,6 +118,8 @@ class BetweenValidator extends BaseValidator
     }
 
     /**
+     * Check whether the value is between the min and max
+     *
      * @param int|float $value
      *
      * @return bool

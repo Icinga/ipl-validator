@@ -3,7 +3,7 @@
 namespace ipl\Validator;
 
 /**
- * Validator for color input controls
+ * Validate a hex color string
  */
 class HexColorValidator extends BaseValidator
 {

@@ -15,13 +15,17 @@ use UnexpectedValueException;
 
 use function ipl\Stdlib\get_php_type;
 
-/** @implements IteratorAggregate<int, Validator> */
+/**
+ * Chain multiple validators and run them in sequence
+ *
+ * @implements IteratorAggregate<int, Validator>
+ */
 class ValidatorChain implements Countable, IteratorAggregate, Validator
 {
     use Messages;
     use Plugins;
 
-    /** Default priority at which validators are added */
+    /** @var int Default priority at which validators are added */
     public const DEFAULT_PRIORITY = 1;
 
     /** @var PriorityQueue<int, Validator> Validator chain */
@@ -181,7 +185,7 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
      * @return Validator
      *
      * @throws InvalidArgumentException If the validator to load is unknown
-     * @throws UnexpectedValueException If a validator loader did not return an instance of {@link Validator}
+     * @throws UnexpectedValueException If a validator loader did not return an instance of {@see Validator}
      */
     public function createValidator(string $name, mixed $options = null): Validator
     {
@@ -235,6 +239,9 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
         return $this;
     }
 
+    /**
+     * Clone the validator chain, ensuring the internal queue is also cloned
+     */
     public function __clone()
     {
         $this->validators = clone $this->validators;
@@ -253,6 +260,11 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
         return array_values($validators);
     }
 
+    /**
+     * Get the number of validators in the chain
+     *
+     * @return int
+     */
     public function count(): int
     {
         return count($this->validators);
@@ -269,6 +281,13 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
         return clone $this->validators;
     }
 
+    /**
+     * Check whether the value passes all validators in the chain
+     *
+     * @param mixed $value
+     *
+     * @return bool
+     */
     public function isValid($value): bool
     {
         $this->clearMessages();

@@ -7,7 +7,7 @@ use LogicException;
 use Psr\Http\Message\UploadedFileInterface;
 
 /**
- * Validates an uploaded file
+ * Validate an uploaded file
  */
 class FileValidator extends BaseValidator
 {
@@ -59,6 +59,8 @@ class FileValidator extends BaseValidator
      * @param int $minSize
      *
      * @return $this
+     *
+     * @throws LogicException If minSize exceeds maxSize
      */
     public function setMinSize(int $minSize): static
     {
@@ -93,6 +95,8 @@ class FileValidator extends BaseValidator
      * @param ?int $maxSize
      *
      * @return $this
+     *
+     * @throws LogicException If maxSize is less than minSize
      */
     public function setMaxSize(?int $maxSize): static
     {
@@ -160,7 +164,10 @@ class FileValidator extends BaseValidator
     }
 
     /**
+     * Check whether the uploaded file passes all configured constraints
+     *
      * @param UploadedFileInterface|UploadedFileInterface[] $value
+     *
      * @return bool
      */
     public function isValid($value): bool
@@ -182,6 +189,13 @@ class FileValidator extends BaseValidator
     }
 
 
+    /**
+     * Validate a single uploaded file against all configured constraints
+     *
+     * @param UploadedFileInterface $file
+     *
+     * @return bool
+     */
     private function validateFile(UploadedFileInterface $file): bool
     {
         $isValid = true;

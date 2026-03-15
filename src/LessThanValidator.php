@@ -3,7 +3,7 @@
 namespace ipl\Validator;
 
 /**
- * Validates whether the value is less than the given max
+ * Validate whether a value is less than the given maximum
  */
 class LessThanValidator extends BaseValidator
 {
@@ -48,6 +48,8 @@ class LessThanValidator extends BaseValidator
     }
 
     /**
+     * Check whether the value is less than the maximum
+     *
      * @param int|float $value
      *
      * @return bool
