@@ -93,7 +93,7 @@ class EmailAddressValidator extends BaseValidator
      */
     private function validateLocalPart(string $localPart, string $email): bool
     {
-        // First try to match the local part on the common dot-atom format
+        // Try to match the local part against the dot-atom format.
         $result = false;
 
         // Dot-atom characters are: 1*atext *("." 1*atext)
@@ -167,7 +167,7 @@ class EmailAddressValidator extends BaseValidator
 
             return false;
         } elseif ($this->mx) {
-            // MX check on hostname
+            // Check MX records for the hostname.
             return $this->validateMXRecords($hostname, $email);
         }
 
@@ -204,7 +204,7 @@ class EmailAddressValidator extends BaseValidator
         $matches = [];
         $length = true;
 
-        // Split email address up and disallow '..'
+        // Split the address and disallow '..'.
         if (
             (strpos($value, '..') !== false)
             || (! preg_match('/^(.+)@([^@]+)$/', $value, $matches))
@@ -229,7 +229,7 @@ class EmailAddressValidator extends BaseValidator
 
         $local = $this->validateLocalPart($localPart, $value);
 
-        // If both parts valid, return true
+        // Both parts and length must be valid.
         if (($local && $this->validateHostnamePart($hostname, $value)) && $length) {
             return true;
         }
@@ -251,7 +251,7 @@ class EmailAddressValidator extends BaseValidator
     private function validateMXRecords(string $hostname, string $email): bool
     {
         $mxHosts = [];
-        //decode IDN domain name
+        // Decode IDN domain name.
         $decodedHostname = idn_to_ascii($hostname, 0, INTL_IDNA_VARIANT_UTS46);
 
         $result = $decodedHostname && getmxrr($decodedHostname, $mxHosts);

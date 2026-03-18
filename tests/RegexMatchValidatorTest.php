@@ -118,15 +118,15 @@ class RegexMatchValidatorTest extends TestCase
     {
         $validator = new RegexMatchValidator('/^[a-z]+$/');
 
-        // First validation - should fail
+        // First validation — should fail.
         $this->assertFalse($validator->isValid('123'));
         $this->assertCount(1, $validator->getMessages());
 
-        // Second validation - should succeed and clear previous messages
+        // Second validation — should succeed and clear previous messages.
         $this->assertTrue($validator->isValid('abc'));
         $this->assertCount(0, $validator->getMessages());
 
-        // Third validation - should fail with new message
+        // Third validation — should fail with a new message.
         $this->assertFalse($validator->isValid('XYZ'));
         $this->assertCount(1, $validator->getMessages());
     }

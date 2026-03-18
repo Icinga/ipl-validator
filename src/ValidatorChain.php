@@ -277,7 +277,7 @@ class ValidatorChain implements Countable, IteratorAggregate, Validator
      */
     public function getIterator(): Traversable
     {
-        // Clone validators because the PriorityQueue acts as a heap and thus items are removed upon iteration
+        // Clone because PriorityQueue removes items during iteration.
         return clone $this->validators;
     }
 

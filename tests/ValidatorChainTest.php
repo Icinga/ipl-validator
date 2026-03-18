@@ -231,10 +231,10 @@ class ValidatorChainTest extends TestCase
                 })
             ]);
 
-        // Call isValid() more than once
+        // Call isValid() more than once.
         $this->assertFalse($validators->isValid('value'));
         $this->assertFalse($validators->isValid('value'));
-        // Assert that we only have the messages from the last isValid() run
+        // Only messages from the last isValid() call should remain.
         $this->assertSame(['Validation failed', 'Validation failed again'], $validators->getMessages());
     }
 

@@ -16,7 +16,7 @@ class PrivateKeyValidator extends BaseValidator
      */
     public function isValid($value): bool
     {
-        // Multiple isValid() calls must not stack validation messages
+        // Reset messages from a previous isValid() call.
         $this->clearMessages();
 
         if (preg_match('/\A\s*\w+:/', $value)) {
