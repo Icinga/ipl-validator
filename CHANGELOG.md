@@ -4,6 +4,8 @@ All notable changes to this library are documented in this file.
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-03-24
+
 - **Breaking** Raise minimum PHP version to 8.2 (#44)
 - Add `RegexMatchValidator` to validate values against a
   regular expression (#19)
@@ -48,7 +50,8 @@ All notable changes to this library are documented in this file.
 Initial release with `BaseValidator`, `CallbackValidator`, and
 `ValidatorChain`.
 
-[Unreleased]: https://github.com/Icinga/ipl-validator/compare/v0.5.0...HEAD
+[Unreleased]: https://github.com/Icinga/ipl-validator/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/Icinga/ipl-validator/releases/tag/v1.0.0
 [0.5.0]: https://github.com/Icinga/ipl-validator/releases/tag/v0.5.0
 [0.4.0]: https://github.com/Icinga/ipl-validator/releases/tag/v0.4.0
 [0.3.0]: https://github.com/Icinga/ipl-validator/releases/tag/v0.3.0
