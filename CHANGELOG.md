@@ -4,13 +4,13 @@ All notable changes to this library are documented in this file.
 
 ## [Unreleased]
 
-- **Breaking** Raise minimum PHP version to 8.0 (#42)
+- **Breaking** Raise minimum PHP version to 8.2 (#44)
 - Add `RegexMatchValidator` to validate values against a
   regular expression (#19)
 - Add `RegexSyntaxValidator` to validate that a string is a
   syntactically valid regular expression (#42)
+- Add strict type declarations (#39, #44)
 - Support PHP 8.5 (#38)
-- Add return, parameter, and property types (#39)
 
 ## [0.5.0] - 2023-03-22
 
