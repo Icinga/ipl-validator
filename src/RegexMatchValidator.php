@@ -5,7 +5,7 @@ namespace ipl\Validator;
 use InvalidArgumentException;
 
 /**
- * Validates value with a given regex pattern
+ * Validate a value against a given regex pattern
  *
  * Available options:
  * - pattern: (string) Regex pattern
@@ -20,7 +20,7 @@ class RegexMatchValidator extends BaseValidator
     protected ?string $notMatchMessage = null;
 
     /**
-     * Create a RegexMatchValidator
+     * Create a new RegexMatchValidator
      *
      * @param string|array{pattern: string, notMatchMessage?: string|null} $pattern
      *
@@ -48,9 +48,16 @@ class RegexMatchValidator extends BaseValidator
         }
     }
 
+    /**
+     * Check whether the value matches the pattern
+     *
+     * @param string $value
+     *
+     * @return bool
+     */
     public function isValid($value): bool
     {
-        // Multiple isValid() calls must not stack validation messages
+        // Reset messages from a previous isValid() call.
         $this->clearMessages();
 
         $result = preg_match($this->pattern, $value);

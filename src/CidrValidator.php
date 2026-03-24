@@ -10,7 +10,10 @@ use ipl\Stdlib\Str;
 class CidrValidator extends BaseValidator
 {
     /**
+     * Check whether the value is a valid CIDR notation string
+     *
      * @param string $value
+     *
      * @return bool
      */
     public function isValid($value): bool

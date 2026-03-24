@@ -2,12 +2,12 @@
 
 namespace ipl\Validator;
 
+use InvalidArgumentException;
 use ipl\Stdlib\Str;
-use LogicException;
 use Psr\Http\Message\UploadedFileInterface;
 
 /**
- * Validates an uploaded file
+ * Validate an uploaded file
  */
 class FileValidator extends BaseValidator
 {
@@ -59,11 +59,13 @@ class FileValidator extends BaseValidator
      * @param int $minSize
      *
      * @return $this
+     *
+     * @throws InvalidArgumentException If minSize exceeds maxSize
      */
     public function setMinSize(int $minSize): static
     {
         if (($max = $this->getMaxSize()) !== null && $minSize > $max) {
-            throw new LogicException(
+            throw new InvalidArgumentException(
                 sprintf(
                     'The minSize must be less than or equal to the maxSize, but minSize: %d and maxSize: %d given.',
                     $minSize,
@@ -93,11 +95,13 @@ class FileValidator extends BaseValidator
      * @param ?int $maxSize
      *
      * @return $this
+     *
+     * @throws InvalidArgumentException If maxSize is less than minSize
      */
     public function setMaxSize(?int $maxSize): static
     {
         if ($maxSize !== null && ($min = $this->getMinSize()) !== null && $maxSize < $min) {
-            throw new LogicException(
+            throw new InvalidArgumentException(
                 sprintf(
                     'The minSize must be less than or equal to the maxSize, but minSize: %d and maxSize: %d given.',
                     $min,
@@ -160,12 +164,15 @@ class FileValidator extends BaseValidator
     }
 
     /**
+     * Check whether the uploaded file passes all configured constraints
+     *
      * @param UploadedFileInterface|UploadedFileInterface[] $value
+     *
      * @return bool
      */
     public function isValid($value): bool
     {
-        // Multiple isValid() calls must not stack validation messages
+        // Reset messages from a previous isValid() call.
         $this->clearMessages();
 
         if (is_array($value)) {
@@ -182,6 +189,13 @@ class FileValidator extends BaseValidator
     }
 
 
+    /**
+     * Validate a single uploaded file against all configured constraints
+     *
+     * @param UploadedFileInterface $file
+     *
+     * @return bool
+     */
     private function validateFile(UploadedFileInterface $file): bool
     {
         $isValid = true;

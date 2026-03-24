@@ -14,7 +14,7 @@ class InArrayValidator extends BaseValidator
     protected bool $strict = false;
 
     /**
-     * Create a new InArray validator
+     * Create a new InArrayValidator
      *
      * **Optional options:**
      *
@@ -80,9 +80,16 @@ class InArrayValidator extends BaseValidator
         return $this;
     }
 
+    /**
+     * Check whether the value exists in the haystack
+     *
+     * @param mixed $value
+     *
+     * @return bool
+     */
     public function isValid($value): bool
     {
-        // Multiple isValid() calls must not stack validation messages
+        // Reset messages from a previous isValid() call.
         $this->clearMessages();
 
         $notInArray = $this->findInvalid((array) $value);

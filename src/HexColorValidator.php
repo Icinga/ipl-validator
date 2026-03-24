@@ -3,7 +3,7 @@
 namespace ipl\Validator;
 
 /**
- * Validator for color input controls
+ * Validate a hex color string
  */
 class HexColorValidator extends BaseValidator
 {
@@ -16,7 +16,7 @@ class HexColorValidator extends BaseValidator
      */
     public function isValid($value): bool
     {
-        // Multiple isValid() calls must not stack validation messages
+        // Reset messages from a previous isValid() call.
         $this->clearMessages();
 
         if (! preg_match('/\A#[0-9a-f]{6}\z/i', $value)) {

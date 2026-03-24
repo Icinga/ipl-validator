@@ -3,18 +3,20 @@
 namespace ipl\Validator;
 
 /**
- * Validates a private key
+ * Validate a PEM-encoded private key
  */
 class PrivateKeyValidator extends BaseValidator
 {
     /**
+     * Check whether the value is a valid PEM-encoded private key
+     *
      * @param string $value
      *
      * @return bool
      */
     public function isValid($value): bool
     {
-        // Multiple isValid() calls must not stack validation messages
+        // Reset messages from a previous isValid() call.
         $this->clearMessages();
 
         if (preg_match('/\A\s*\w+:/', $value)) {

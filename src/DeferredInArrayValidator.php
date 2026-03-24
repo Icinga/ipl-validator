@@ -3,7 +3,7 @@
 namespace ipl\Validator;
 
 /**
- * Validates whether the value exists in the haystack created by the callback
+ * Validate whether a value exists in the haystack created by the callback
  */
 class DeferredInArrayValidator extends InArrayValidator
 {
@@ -11,7 +11,7 @@ class DeferredInArrayValidator extends InArrayValidator
     protected $callback;
 
     /**
-     * Create a new deferredInArray validator
+     * Create a new DeferredInArrayValidator
      *
      * **Required parameter:**
      *
@@ -33,6 +33,11 @@ class DeferredInArrayValidator extends InArrayValidator
         parent::__construct($options);
     }
 
+    /**
+     * Get the haystack, invoking the callback if no haystack has been set
+     *
+     * @return mixed[]
+     */
     public function getHaystack(): array
     {
         return $this->haystack ?? call_user_func($this->callback);

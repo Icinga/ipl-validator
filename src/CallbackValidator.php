@@ -3,22 +3,21 @@
 namespace ipl\Validator;
 
 /**
- * Validator that uses a callback for the actual validation
+ * Delegate validation to a callable
  *
  * # Example Usage
- * ```
- * $dedup = new CallbackValidator(function ($value, CallbackValidator $validator) {
- *     if (already_exists_in_database($value)) {
- *         $validator->addMessage('Record already exists in database');
  *
- *         return false;
- *     }
+ *     $dedup = new CallbackValidator(function ($value, CallbackValidator $validator) {
+ *         if (already_exists_in_database($value)) {
+ *             $validator->addMessage('Record already exists in database');
  *
- *     return true;
- * });
+ *             return false;
+ *         }
  *
- * $dedup->isValid($id);
- * ```
+ *         return true;
+ *     });
+ *
+ *     $dedup->isValid($id);
  */
 class CallbackValidator extends BaseValidator
 {
@@ -26,7 +25,7 @@ class CallbackValidator extends BaseValidator
     protected $callback;
 
     /**
-     * Create a new callback validator
+     * Create a new CallbackValidator
      *
      * @param callable $callback Validation callback
      */
@@ -35,9 +34,16 @@ class CallbackValidator extends BaseValidator
         $this->callback = $callback;
     }
 
+    /**
+     * Check whether the value passes the validation callback
+     *
+     * @param mixed $value
+     *
+     * @return bool
+     */
     public function isValid($value): bool
     {
-        // Multiple isValid() calls must not stack validation messages
+        // Reset messages from a previous isValid() call.
         $this->clearMessages();
 
         return call_user_func($this->callback, $value, $this);

@@ -3,7 +3,7 @@
 namespace ipl\Validator;
 
 /**
- * Validates whether the value is greater than the given min
+ * Validate whether a value is greater than the given minimum
  */
 class GreaterThanValidator extends BaseValidator
 {
@@ -40,7 +40,6 @@ class GreaterThanValidator extends BaseValidator
      *
      * @return $this
      */
-
     public function setMin(int|float $min): static
     {
         $this->min = $min;
@@ -49,13 +48,15 @@ class GreaterThanValidator extends BaseValidator
     }
 
     /**
+     * Check whether the value is greater than the minimum
+     *
      * @param int|float $value
      *
      * @return bool
      */
     public function isValid($value): bool
     {
-        // Multiple isValid() calls must not stack validation messages
+        // Reset messages from a previous isValid() call.
         $this->clearMessages();
 
         if ($this->getMin() >= $value) {

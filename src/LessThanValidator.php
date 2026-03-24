@@ -3,7 +3,7 @@
 namespace ipl\Validator;
 
 /**
- * Validates whether the value is less than the given max
+ * Validate whether a value is less than the given maximum
  */
 class LessThanValidator extends BaseValidator
 {
@@ -48,13 +48,15 @@ class LessThanValidator extends BaseValidator
     }
 
     /**
+     * Check whether the value is less than the maximum
+     *
      * @param int|float $value
      *
      * @return bool
      */
     public function isValid($value): bool
     {
-        // Multiple isValid() calls must not stack validation messages
+        // Reset messages from a previous isValid() call.
         $this->clearMessages();
 
         if ($this->getMax() <= $value) {

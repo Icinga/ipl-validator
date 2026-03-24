@@ -3,10 +3,9 @@
 namespace ipl\Validator;
 
 use InvalidArgumentException;
-use LogicException;
 
 /**
- * Validates string length with given options
+ * Validate a string's length
  */
 class StringLengthValidator extends BaseValidator
 {
@@ -54,12 +53,12 @@ class StringLengthValidator extends BaseValidator
      *
      * @return $this
      *
-     * @throws LogicException When the $min is greater than the $max value
+     * @throws InvalidArgumentException When the $min is greater than the $max value
      */
     public function setMin(int $min): static
     {
         if ($this->getMax() !== null && $min > $this->getMax()) {
-            throw new LogicException(
+            throw new InvalidArgumentException(
                 sprintf(
                     'The min must be less than or equal to the max length, but min: %d and max: %d given.',
                     $min,
@@ -84,18 +83,18 @@ class StringLengthValidator extends BaseValidator
     }
 
     /**
-     * Set the minimum required string length
+     * Set the maximum required string length
      *
      * @param ?int $max
      *
      * @return $this
      *
-     * @throws LogicException When the $min is greater than the $max value
+     * @throws InvalidArgumentException When the $min is greater than the $max value
      */
     public function setMax(?int $max): static
     {
         if ($max !== null && $this->getMin() > $max) {
-            throw new LogicException(
+            throw new InvalidArgumentException(
                 sprintf(
                     'The min must be less than or equal to the max length, but min: %d and max: %d given.',
                     $this->getMin(),
@@ -125,6 +124,8 @@ class StringLengthValidator extends BaseValidator
      * @param ?string $encoding
      *
      * @return $this
+     *
+     * @throws InvalidArgumentException When the given encoding is not supported
      */
     public function setEncoding(?string $encoding): static
     {
@@ -143,16 +144,18 @@ class StringLengthValidator extends BaseValidator
     }
 
     /**
+     * Check whether the string's length is within the configured min and max bounds
+     *
      * @param string $value
      *
      * @return bool
      */
     public function isValid($value): bool
     {
-        // Multiple isValid() calls must not stack validation messages
+        // Reset messages from a previous isValid() call.
         $this->clearMessages();
 
-        if ($encoding = $this->getEncoding()) { // because encoding is only nullable in php >= 8.0
+        if ($encoding = $this->getEncoding()) { // Encoding is nullable only in PHP >= 8.0.
             $length = mb_strlen($value, $encoding);
         } else {
             $length = mb_strlen($value);
