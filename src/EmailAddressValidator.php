@@ -2,7 +2,7 @@
 
 namespace ipl\Validator;
 
-use Exception;
+use InvalidArgumentException;
 
 /**
  * Validate an email address
@@ -31,7 +31,7 @@ class EmailAddressValidator extends BaseValidator
      *
      * @param array{mx?: bool, deep?: bool} $options
      *
-     * @throws Exception If deep MX check is enabled without enabling the MX check first
+     * @throws InvalidArgumentException If deep MX check is enabled without enabling the MX check first
      */
     public function __construct(array $options = [])
     {
@@ -70,12 +70,12 @@ class EmailAddressValidator extends BaseValidator
      *
      * @return $this
      *
-     * @throws Exception If MX check is not enabled
+     * @throws InvalidArgumentException If MX check is not enabled
      */
     public function setEnableDeepMxCheck(bool $deep = true): static
     {
         if (! $this->mx) {
-            throw new Exception("MX record check has to be enabled to enable deep MX record check");
+            throw new InvalidArgumentException("MX record check has to be enabled to enable deep MX record check");
         }
 
         $this->deep = $deep;

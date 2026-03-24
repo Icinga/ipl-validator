@@ -3,7 +3,7 @@
 namespace ipl\Validator;
 
 use ipl\Stdlib\Str;
-use LogicException;
+use InvalidArgumentException;
 use Psr\Http\Message\UploadedFileInterface;
 
 /**
@@ -60,12 +60,12 @@ class FileValidator extends BaseValidator
      *
      * @return $this
      *
-     * @throws LogicException If minSize exceeds maxSize
+     * @throws InvalidArgumentException If minSize exceeds maxSize
      */
     public function setMinSize(int $minSize): static
     {
         if (($max = $this->getMaxSize()) !== null && $minSize > $max) {
-            throw new LogicException(
+            throw new InvalidArgumentException(
                 sprintf(
                     'The minSize must be less than or equal to the maxSize, but minSize: %d and maxSize: %d given.',
                     $minSize,
@@ -96,12 +96,12 @@ class FileValidator extends BaseValidator
      *
      * @return $this
      *
-     * @throws LogicException If maxSize is less than minSize
+     * @throws InvalidArgumentException If maxSize is less than minSize
      */
     public function setMaxSize(?int $maxSize): static
     {
         if ($maxSize !== null && ($min = $this->getMinSize()) !== null && $maxSize < $min) {
-            throw new LogicException(
+            throw new InvalidArgumentException(
                 sprintf(
                     'The minSize must be less than or equal to the maxSize, but minSize: %d and maxSize: %d given.',
                     $min,

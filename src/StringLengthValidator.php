@@ -3,7 +3,6 @@
 namespace ipl\Validator;
 
 use InvalidArgumentException;
-use LogicException;
 
 /**
  * Validate a string's length
@@ -54,12 +53,12 @@ class StringLengthValidator extends BaseValidator
      *
      * @return $this
      *
-     * @throws LogicException When the $min is greater than the $max value
+     * @throws InvalidArgumentException When the $min is greater than the $max value
      */
     public function setMin(int $min): static
     {
         if ($this->getMax() !== null && $min > $this->getMax()) {
-            throw new LogicException(
+            throw new InvalidArgumentException(
                 sprintf(
                     'The min must be less than or equal to the max length, but min: %d and max: %d given.',
                     $min,
@@ -90,12 +89,12 @@ class StringLengthValidator extends BaseValidator
      *
      * @return $this
      *
-     * @throws LogicException When the $min is greater than the $max value
+     * @throws InvalidArgumentException When the $min is greater than the $max value
      */
     public function setMax(?int $max): static
     {
         if ($max !== null && $this->getMin() > $max) {
-            throw new LogicException(
+            throw new InvalidArgumentException(
                 sprintf(
                     'The min must be less than or equal to the max length, but min: %d and max: %d given.',
                     $this->getMin(),

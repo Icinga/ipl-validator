@@ -2,7 +2,7 @@
 
 namespace ipl\Validator;
 
-use Exception;
+use InvalidArgumentException;
 
 /**
  * Validate whether a value is between the given min and max
@@ -32,12 +32,12 @@ class BetweenValidator extends BaseValidator
      *
      * @param array{min: int|float, max: int|float, inclusive?: bool} $options
      *
-     * @throws Exception When required option is missing
+     * @throws InvalidArgumentException When required option is missing
      */
     public function __construct(array $options)
     {
         if (! isset($options['min'], $options['max'])) {
-            throw new Exception("Missing option. 'min' and 'max' has to be given");
+            throw new InvalidArgumentException("Missing option. 'min' and 'max' has to be given");
         }
 
         $this->setMin($options['min'])
