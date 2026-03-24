@@ -3,8 +3,8 @@
 namespace ipl\Tests\Validator;
 
 use ipl\I18n\NoopTranslator;
-use ipl\Validator\HostnameValidator;
 use ipl\I18n\StaticTranslator;
+use ipl\Validator\HostnameValidator;
 
 class HostnameValidatorTest extends TestCase
 {

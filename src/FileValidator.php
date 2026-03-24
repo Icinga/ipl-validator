@@ -2,8 +2,8 @@
 
 namespace ipl\Validator;
 
-use ipl\Stdlib\Str;
 use InvalidArgumentException;
+use ipl\Stdlib\Str;
 use Psr\Http\Message\UploadedFileInterface;
 
 /**
